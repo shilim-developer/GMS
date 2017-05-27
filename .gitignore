@@ -1,0 +1,7 @@
+#ÊÇ×¢ÊÍ
+#Java class files
+*.class
+
+# generated files
+bin/
+gen/
