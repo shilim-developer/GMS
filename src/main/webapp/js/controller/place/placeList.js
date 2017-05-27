@@ -14,8 +14,15 @@ controllers.controller("placeList", ['$scope','$http','$state',function($scope,$
 		$http.get(url)
 		.success(function(data) {
 			console.log(data);
-			$scope.placeList = data.resultParam;
-			$scope.page.pageNum = $scope.placeList.pageNum;
+			if(data.serviceResult == 1) {
+				$scope.placeList = data.resultParam;
+				$scope.page.pageNum = $scope.placeList.pageNum;
+			} else {
+				toastr.error('获取数据', '失败');
+			}
+		})
+		.error(function(data) {
+			toastr.error('获取数据', '失败');
 		});
 	}
 	$scope.getPlaceList();
@@ -40,11 +47,11 @@ controllers.controller("placeList", ['$scope','$http','$state',function($scope,$
 	$scope.toPage = function(e) {
 		if(e && e.keyCode != 13) return;
 		if($scope.page.pageNum <=0 || 
-				$scope.pageNum > $scope.placeList.pages ||
-				typeof $scope.page.pageNum != "number") {
-			sessionStorage.placeListPageNum = pageNum;
+				$scope.page.pageNum > $scope.placeList.pages) {
+			$scope.page.pageNum = $scope.placeList.pageNum;
 			return;
 		}
+		sessionStorage.placeListPageNum = $scope.page.pageNum;
 		$scope.getPlaceList();
 	}
 
