@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.EquipmentDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.Equipment">
+    <id column="equipmentId" jdbcType="INTEGER" property="equipmentid" />
+    <result column="equipmentName" jdbcType="VARCHAR" property="equipmentname" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="eStandard" jdbcType="VARCHAR" property="estandard" />
+    <result column="ePrice" jdbcType="VARCHAR" property="eprice" />
+    <result column="totalNum" jdbcType="INTEGER" property="totalnum" />
+    <result column="underRepair" jdbcType="BIT" property="underrepair" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    equipmentId, equipmentName, typeId, eStandard, ePrice, totalNum, underRepair
+  </sql>
+  <!-- 添加器材 -->
+	<insert id="insert" parameterType="com.lp.gms.model.Equipment">
+		insert into equipment (
+		equipmentName,typeId,eStandard,ePrice,totalNum,underRepair)
+		values
+		(#{equipmentname,jdbcType=VARCHAR},
+		#{typeid,jdbcType=INTEGER},
+		#{estandard,jdbcType=VARCHAR},
+		#{eprice,jdbcType=VARCHAR},
+		#{totalnum,jdbcType=INTEGER},
+		#{underrepair,jdbcType=BIT})
+	</insert>
+
+	<!-- 删除器材 -->
+	<delete id="deleteByList" parameterType="java.util.List">
+		delete from equipment
+		where equipmentId in
+		<foreach item="equipment" collection="list" open="(" separator=","
+			close=")">
+			#{equipment.equipmentid}
+		</foreach>
+	</delete>
+
+	<!--更新器材 -->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Equipment">
+		update equipment
+		set
+		equipmentName = #{equipmentname,jdbcType=VARCHAR},
+		typeId = #{typeid,jdbcType=INTEGER},
+		eStandard = #{description,jdbcType=VARCHAR},
+		ePrice = #{eprice,jdbcType=VARCHAR},
+		totalNum = #{totalnum,jdbcType=INTEGER},
+		underRepair = #{underrepair,jdbcType=BIT}
+		where equipmentId = #{equipmentid,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询总记录数 -->
+	<select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+		select count(0) from equipment
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					equipmentName like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					equipmentName = #{keyWords}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询列表 -->
+	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from equipment 
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					equipmementName like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					equipmentName = #{keyWords}
+				</if>
+			</if>
+		</where>
+		<if test="pageNum > 0 and pageSize > 0">
+			limit #{startColum},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 通过器材id查询器材 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from equipment
+		where equipmentId = #{equipmentid,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

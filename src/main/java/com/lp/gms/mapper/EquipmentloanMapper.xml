@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.EquipmentloanDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.Equipmentloan">
+    <id column="equipmentLoanId" jdbcType="INTEGER" property="equipmentloanid" />
+    <result column="equipmentId" jdbcType="INTEGER" property="equipmentid" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="ePayment" jdbcType="VARCHAR" property="epayment" />
+    <result column="rentNum" jdbcType="INTEGER" property="rentnum" />
+    <result column="eStatus" jdbcType="VARCHAR" property="estatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    equipmentLoanId, equipmentId, user_id, startDate, endDate, ePayment, rentNum, eStatus
+  </sql>
+  <!-- 添加器材租借 -->
+	<insert id="insert" parameterType="com.lp.gms.model.Equipmentloan">
+		insert into equipmentloan (
+		equipmentId,user_id,rmanName,startDate,endDate,ePayment,rentNum,eStatus)
+		values
+		(#{equipmentid,jdbcType=INTEGER},
+		#{userId,jdbcType=INTEGER},
+		#{startdate,jdbcType=TIMESTAMP},
+		#{enddate,jdbcType=TIMESTAMP},
+		#{epayment,jdbcType=VARCHAR},
+		#{rentnum,jdbcType=INTEGER},
+		#{estatus,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 删除器材租借 -->
+	<delete id="deleteByList" parameterType="java.util.List">
+		delete from equipmentloan
+		where equipmentLoanId in
+		<foreach item="equipmentloan" collection="list" open="(" separator=","
+			close=")">
+			#{equipmentloan.equipmentloanid}
+		</foreach>
+	</delete>
+
+	<!--更新器材 租借-->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Equipmentloan">
+		update equipmentloan
+		set
+		equipmentId = #{equipmentid,jdbcType=INTEGER},
+		user_id = #{userId,jdbcType=INTEGER},
+		startDate = #{startdate,jdbcType=TIMESTAMP},
+		endDate = #{enddate,jdbcType=TIMESTAMP},
+		ePayment = #{epayment,jdbcType=VARCHAR},
+		rentNum = #{rentnum,jdbcType=INTEGER},
+		eStatus = #{estatus,jdbcType=VARCHAR}
+		where equipmentLoanId = #{equipmentloanid,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询总记录数 -->
+	<select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+		select count(0) from equipmentloan
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					equipmentId like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					equipmentId = #{keyWords}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询列表 -->
+	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from equipmentloan
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					equipmementId like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					equipmentId = #{keyWords}
+				</if>
+			</if>
+		</where>
+		<if test="pageNum > 0 and pageSize > 0">
+			limit #{startColum},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 通过器材租借id查询器材 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from equipmentloan
+		where equipmentLoanId = #{equipmentloanid,jdbcType=INTEGER}
+	</select>
+</mapper>
