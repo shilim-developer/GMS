@@ -5,17 +5,17 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 	$stateProvider
 	.state("placeList",{
 		url:"/placeList",
-		templateUrl:"views/place/place-list.html",
+		templateUrl:"place/place-list.html",
 		controller:"placeList"
 	})
 	.state("addPlace",{
 		url:"/addPlace",
-		templateUrl:"views/place/place-add.html",
+		templateUrl:"place/place-add.html",
 		controller:"addPlace"
 	})
 	.state("editPlace",{
 		url:"/editPlace/:id",
-		templateUrl:"views/place/place-edit.html",
+		templateUrl:"place/place-edit.html",
 		controller:"editPlace"
 	})
 	
