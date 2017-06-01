@@ -17,7 +17,18 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/editPlace/:id",
 		templateUrl:"views/place/place-edit.html",
 		controller:"editPlace"
-	});
+	})
+	
+	.state("equipmentList",{
+		url:"/equipmentList",
+		templateUrl:"views/equipment/equipment-list.html",
+		controller:"equipmentList"
+	})
+	.state("equipmentTypeList",{
+		url:"/equipmentTypeList",
+		templateUrl:"views/equipmentType/equipmentType-list.html",
+		controller:"equipmentTypeList"
+	})
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){
