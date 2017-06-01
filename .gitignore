@@ -1,7 +1,5 @@
-#ÊÇ×¢ÊÍ
-#Java class files
-*.class
 
-# generated files
+/target/
+*.class
 bin/
 gen/
