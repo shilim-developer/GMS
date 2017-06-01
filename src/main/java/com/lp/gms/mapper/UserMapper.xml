@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="cardNo" jdbcType="VARCHAR" property="cardno" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account, password, name, cardNo, email, mobilephone, address, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gym_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from gym_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lp.gms.model.User">
+    insert into gym_user (id, account, password, 
+      name, cardNo, email, 
+      mobilephone, address, status
+      )
+    values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{mobilephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lp.gms.model.User">
+    insert into gym_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="cardno != null">
+        cardNo,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="mobilephone != null">
+        mobilephone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null">
+        #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.User">
+    update gym_user
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null">
+        cardNo = #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lp.gms.model.User">
+    update gym_user
+    set account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      cardNo = #{cardno,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectCounts" resultType="integer">
+    SELECT count(*)
+    FROM gyn_user
+  </select>
+  <select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+	    select count(0) from gym_user
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					name like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					name = #{keyWords}
+				</if>
+			</if>
+		</where>
+  </select>
+  <select id="selectByLoginName" resultType="boolean">
+    SELECT exists(
+           SELECT *
+           FROM gym_user
+           WHERE name = #{name}
+    )
+  </select>
+  <select id="findOneByUsername" resultType="com.lp.gms.model.User">
+      SELECT *
+      FROM gym_user
+      WHERE name = #{name}
+  </select>
+  <select id="login" resultMap="BaseResultMap">
+     select
+     <include refid="Base_Column_List" />
+     from gym_user
+     where account = #{account,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+  <select id="findRole"  resultType="com.lp.gms.model.Role">
+    select  ur.id,ur.description,ifnull(uu.id,0)marker,uu.id userId from gym_role ur
+        left join gym_user_role uur on uur.rid = ur.id
+        left join (select id from gym_user where id=#{id,jdbcType=BIGINT}) uu on uu.id = uur.uid
+        group by ur.id
+  </select>
+  
+  <!-- 分页查询用户列表 -->
+  <select id="selectByPage" parameterType="com.lp.gms.model.Page" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gym_user
+    <where>
+      <if test="keyWords != null and keyWords != ''">
+        <if test="fuzzy == true">
+          name like '%' #{keyWords} '%'
+        </if>
+        <if test="fuzzy == false">
+          name = #{keyWords}
+        </if>
+      </if>
+    </where>
+    <if test="pageNum > 0 and pageSize > 0">
+      limit #{startColum},#{pageSize}
+    </if>
+  </select>
+  
+  	<!-- 删除用户 -->
+	<delete id="deleteByList" parameterType="java.util.List">
+		delete from gym_user
+		where id in
+		<foreach item="gym_user" collection="list" open="(" separator=","
+			close=")">
+			#{gym_user.id}
+		</foreach>
+	</delete>
+</mapper>
