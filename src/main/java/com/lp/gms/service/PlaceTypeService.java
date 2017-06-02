@@ -30,7 +30,7 @@ public class PlaceTypeService {
 	}
 	
 	public ResultMessage updatePlaceType(PlaceType placeType) throws Exception {
-		placeTypeDao.insert(placeType);
+		placeTypeDao.updateByPrimaryKey(placeType);
 		return new ResultMessage(true, ResultCode.SUCCESS, "修改成功", null);
 	}
 	

@@ -10,11 +10,11 @@
 	<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 		<div class="col-lg-10">
-			<h2>场地管理</h2>
+			<h2>场地租借</h2>
 			<ol class="breadcrumb">
 				<li><a href="#">主页</a></li>
-				<li><a>场地管理</a></li>
-				<li class="active"><strong>新增场地</strong></li>
+				<li><a>场地租借</a></li>
+				<li class="active"><strong>场地预定</strong></li>
 			</ol>
 		</div>
 		<div class="col-lg-2"></div>
@@ -27,7 +27,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>新增场地</h5>
+						<h5>租借场地申请表</h5>
 					</div>
 					<div class="ibox-content">
 						<div class="input-group pull-left">
@@ -46,36 +46,32 @@
 								<label class="col-sm-2 control-label">场地名称</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="placeName"
-										ng-class="{error:valid && placeForm.placeName.$invalid}"
-										ng-model="place.placeName" required>
+									ng-class="{error:valid && placeForm.placeName.$invalid}" ng-model="place.placeName" required disabled>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label"
-									ng-model="place.placeLocation">场地位置</label>
+								<label class="col-sm-2 control-label" ng-model="place.placeLocation">场地位置</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="placeLocation"
-										ng-class="{error:valid && placeForm.placeLocation.$invalid}"
-										ng-model="place.placeLocation" required>
+									ng-class="{error:valid && placeForm.placeLocation.$invalid}" ng-model="place.placeLocation" required disabled>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label" ng-model="place.placeType">场地类型</label>
 								<div class="col-sm-6">
-									<select class="form-control" ng-model="place.placeType.id"
-										ng-options="item.id as item.placeTypeName for item in placeTypeList">
+									<select class="form-control" disabled
+										ng-model="place.placeType.id" ng-options="item.id as item.placeTypeName for item in placeTypeList">
 									</select>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" ng-model="place.cost">租借费用</label>
+								<label class="col-sm-2 control-label">租借费用</label>
 								<div class="col-sm-6">
 									<input type="number" class="form-control" name="cost"
-										ng-class="{error:valid && placeForm.cost.$invalid}"
-										ng-model="place.cost" required>
+									ng-class="{error:valid && placeForm.cost.$invalid}" ng-model="place.cost" required disabled>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -100,7 +96,6 @@
 												<th>第一节</th>
 												<td ng-repeat="item in placeStatusList" ng-if="$index<7">
 													<select class="form-control"
-													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
@@ -111,7 +106,6 @@
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>6 && $index<14">
 													<select class="form-control"
-													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
@@ -122,7 +116,6 @@
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>13 && $index<21">
 													<select class="form-control"
-													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
@@ -133,7 +126,6 @@
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>20 && $index<28">
 													<select class="form-control"
-													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
@@ -144,7 +136,6 @@
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>27 && $index<35">
 													<select class="form-control"
-													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
@@ -170,12 +161,13 @@
 				<div class="modal-body">
 					<div class="row">
 						<h3 class="m-t-none m-b">提示</h3>
-						<h4>确定放弃添加场地吗？</h4>
+						<h4>确定放弃修改场地吗？</h4>
 						<div class="pull-right">
 							<button class="btn btn-sm btn-default" data-dismiss="modal">
 								<strong>取消</strong>
 							</button>
-							<button class="btn btn-sm btn-primary" ng-click="goBack()">
+							<button class="btn btn-sm btn-primary"
+								ng-click="goBack()">
 								<strong>确定</strong>
 							</button>
 						</div>

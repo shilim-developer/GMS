@@ -10,10 +10,10 @@
 	<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 		<div class="col-lg-10">
-			<h2>场地管理</h2>
+			<h2>场地租借</h2>
 			<ol class="breadcrumb">
 				<li><a href="#">主页</a></li>
-				<li><a>场地管理</a></li>
+				<li><a>场地租借</a></li>
 				<li class="active"><strong>场地列表</strong></li>
 			</ol>
 		</div>
@@ -36,11 +36,6 @@
 							class="form-control input-sm">
 						</select>
 						</label>
-						<div class="input-group pull-left" style="margin-left: 10px;">
-							<a data-toggle="modal" class="btn btn-sm  btn-primary"
-								ui-sref="addPlace"> <i class="fa fa-plus"></i> 新增场地
-							</a>
-						</div>
 						<div class="input-group col-lg-4 pull-right">
 							<input type="text" class="form-control input-sm" name="search"
 								placeholder="输入场地名称查找" ng-model="page.keyWords"
@@ -81,10 +76,9 @@
 											<i class="fa fa-eye"></i> 查看
 										</div>
 									</td>
-									<td class="text-center"><a title="修改"
-										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-										<a title="删除" ng-click="deleteTips('one',item.id)"><i
-											class="fa fa-trash"></i></a></td>
+									<td class="text-center"><a title="预定"
+										ng-click="toLeasePage(item.id)"><i class="fa fa-bookmark"></i> 预定</a>
+										</td>
 								</tr>
 								<tr ng-show="placeList.list.length==0">
 									<td class="text-center" colspan="8">没有记录</td>

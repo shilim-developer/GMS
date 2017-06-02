@@ -14,7 +14,7 @@
 			<ol class="breadcrumb">
 				<li><a href="#">主页</a></li>
 				<li><a>场地管理</a></li>
-				<li class="active"><strong>新增场地</strong></li>
+				<li class="active"><strong>修改场地</strong></li>
 			</ol>
 		</div>
 		<div class="col-lg-2"></div>
@@ -27,7 +27,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>新增场地</h5>
+						<h5>修改场地</h5>
 					</div>
 					<div class="ibox-content">
 						<div class="input-group pull-left">
@@ -61,8 +61,9 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label" ng-model="place.placeType">场地类型</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" name="placeType"
-									ng-class="{error:valid && placeForm.placeType.$invalid}" ng-model="place.placeType" required>
+									<select class="form-control"
+										ng-model="place.placeType.id" ng-options="item.id as item.placeTypeName for item in placeTypeList">
+									</select>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -71,6 +72,77 @@
 								<div class="col-sm-6">
 									<input type="number" class="form-control" name="cost"
 									ng-class="{error:valid && placeForm.cost.$invalid}" ng-model="place.cost" required>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" ng-model="place.cost">场地状态</label>
+								<div class="col-sm-9">
+									<table class="table table-bordered my-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th>日</th>
+												<th>一</th>
+												<th>二</th>
+												<th>三</th>
+												<th>四</th>
+												<th>五</th>
+												<th>六</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>第一节</th>
+												<td ng-repeat="item in placeStatusList" ng-if="$index<7">
+													<select class="form-control"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+												</td>
+											</tr>
+											<tr>
+												<th>第二节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>6 && $index<14">
+													<select class="form-control"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+													</td>
+											</tr>
+											<tr>
+												<th>第三节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>13 && $index<21">
+													<select class="form-control"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+												</td>
+											</tr>
+											<tr>
+												<th>第四节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>20 && $index<28">
+													<select class="form-control"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+													</td>
+											</tr>
+											<tr>
+												<th>第五节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>27 && $index<35">
+													<select class="form-control"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+													</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</form>

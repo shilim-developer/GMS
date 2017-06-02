@@ -26,20 +26,16 @@
 	</delete>
 
 	<!-- 修改场地类型 -->
-	<update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.PlaceType">
-		update place_type
-		<set>
-			<if test="placeTypeName != null">
-				place_type_name = #{placeTypeName,jdbcType=VARCHAR},
-			</if>
-		</set>
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.PlaceType">
+		update place_type set
+		place_type_name = #{placeTypeName,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	
 	<!-- 查询总记录数 -->
 	<select id="selectCount" parameterType="com.lp.gms.model.Page"
 		resultType="java.lang.Long">
-		select count(0) from place
+		select count(0) from place_type
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">

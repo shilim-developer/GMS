@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.PlaceStatusDao">
+	<resultMap id="BaseResultMap" type="com.lp.gms.model.PlaceStatus">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="place_id" jdbcType="INTEGER" property="placeId" />
+		<result column="time_id" jdbcType="INTEGER" property="timeId" />
+		<result column="place_status" jdbcType="VARCHAR" property="placeStatus" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, place_id, time_id, place_status
+	</sql>
+
+	<!-- 增加状态列表 -->
+	<insert id="insertBatch" parameterType="java.util.Map">
+		insert into place_status (place_id, time_id,
+		place_status)
+		values
+		<foreach collection="placeStatusList" item="item" index="index"
+			separator=",">
+			(#{placeId,jdbcType=INTEGER}, #{item.id,jdbcType=INTEGER},
+			#{item.placeStatus,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<!-- 通过场地查询状态列表 -->
+	<select id="selectByPlaceId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from place_status
+		where place_id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 批量修改场地状态 -->
+	<update id="updateByPlaceStatus" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index"
+			separator=";">
+			update place_status set place_status = #{item.placeStatus,jdbcType=VARCHAR}
+			where
+			place_id = #{item.placeId,jdbcType=INTEGER}
+			and
+			time_id = #{item.timeId,jdbcType=INTEGER}
+		</foreach>
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from place_status
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+
+
+
+	<insert id="insertSelective" parameterType="com.lp.gms.model.PlaceStatus">
+		insert into place_status
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="placeId != null">
+				place_id,
+			</if>
+			<if test="timeId != null">
+				time_id,
+			</if>
+			<if test="placeStatus != null">
+				place_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="placeId != null">
+				#{placeId,jdbcType=INTEGER},
+			</if>
+			<if test="timeId != null">
+				#{timeId,jdbcType=INTEGER},
+			</if>
+			<if test="placeStatus != null">
+				#{placeStatus,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.PlaceStatus">
+		update place_status
+		<set>
+			<if test="placeId != null">
+				place_id = #{placeId,jdbcType=INTEGER},
+			</if>
+			<if test="timeId != null">
+				time_id = #{timeId,jdbcType=INTEGER},
+			</if>
+			<if test="placeStatus != null">
+				place_status = #{placeStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.PlaceStatus">
+		update place_status
+		set place_id = #{placeId,jdbcType=INTEGER},
+		time_id = #{timeId,jdbcType=INTEGER},
+		place_status = #{placeStatus,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
