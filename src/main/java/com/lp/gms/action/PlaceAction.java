@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import com.google.gson.reflect.TypeToken;
 import com.lp.gms.model.Page;
 import com.lp.gms.model.Place;
+import com.lp.gms.model.PlaceStatus;
 import com.lp.gms.model.ResultMessage;
 import com.lp.gms.service.PlaceService;
 import com.lp.gms.utils.JsonUtil;
@@ -48,6 +49,14 @@ public class PlaceAction extends ActionSupport {
 	}
 	
 	/**
+	 * 场地状态列表
+	 */
+	private String placeStatusList;
+	public void setPlaceStatusList(String placeStatusList) {
+		this.placeStatusList = placeStatusList;
+	}
+	
+	/**
 	 * 分页信息
 	 */
 	private String page;
@@ -55,8 +64,12 @@ public class PlaceAction extends ActionSupport {
 		this.page = page;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void addPlace() throws Exception {
-		resultMessage = placeService.addPlace(JsonUtil.jsonToObject(place, Place.class));
+		System.out.println(placeStatusList);
+		resultMessage = placeService.addPlace(
+				JsonUtil.jsonToObject(place, Place.class),
+				(List<PlaceStatus>)JsonUtil.jsonToObject(placeStatusList, new TypeToken<List<PlaceStatus>>(){}.getType()));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -65,7 +78,9 @@ public class PlaceAction extends ActionSupport {
 	}
 	
 	public void updatePlace() throws Exception {
-		resultMessage = placeService.updatePlace(JsonUtil.jsonToObject(place, Place.class));
+		resultMessage = placeService.updatePlace(
+				JsonUtil.jsonToObject(place, Place.class),
+				(List<PlaceStatus>)JsonUtil.jsonToObject(placeStatusList, new TypeToken<List<PlaceStatus>>(){}.getType()));
 	}
 	
 	public void selectPlaceList() throws Exception {

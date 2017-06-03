@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+
+<body>
+	<!--面包屑导航开始-->
+	<div class="row  border-bottom white-bg dashboard-header">
+		<div class="col-lg-10">
+			<h2>场地管理</h2>
+			<ol class="breadcrumb">
+				<li><a href="#">主页</a></li>
+				<li><a>场地管理</a></li>
+				<li class="active"><strong>新增场地</strong></li>
+			</ol>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
+	<!--面包屑导航结束-->
+
+	<!--列表开始-->
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>新增场地</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="input-group pull-left">
+							<a class="btn btn-sm  btn-white" ng-click="goBackTips()"> <i
+								class="fa fa-mail-reply"></i> 返回
+							</a>
+						</div>
+						<div class="input-group pull-left" style="margin-left: 10px;">
+							<a class="btn btn-sm  btn-primary" ng-click="submit()">确定 </a>
+						</div>
+						<div class="clearfix"></div>
+						<div class="hr-line-dashed"></div>
+						<!-- 表单开始 -->
+						<form class="form-horizontal" name="placeForm" novalidate>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">场地名称</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" name="placeName"
+										ng-class="{error:valid && placeForm.placeName.$invalid}"
+										ng-model="place.placeName" required>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									ng-model="place.placeLocation">场地位置</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" name="placeLocation"
+										ng-class="{error:valid && placeForm.placeLocation.$invalid}"
+										ng-model="place.placeLocation" required>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" ng-model="place.placeType">场地类型</label>
+								<div class="col-sm-6">
+									<select class="form-control" ng-model="place.placeType.id"
+										ng-options="item.id as item.placeTypeName for item in placeTypeList">
+									</select>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" ng-model="place.cost">租借费用</label>
+								<div class="col-sm-6">
+									<input type="number" class="form-control" name="cost"
+										ng-class="{error:valid && placeForm.cost.$invalid}"
+										ng-model="place.cost" required>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" ng-model="place.cost">场地状态</label>
+								<div class="col-sm-9">
+									<table class="table table-bordered my-table">
+										<thead>
+											<tr>
+												<th></th>
+												<th>日</th>
+												<th>一</th>
+												<th>二</th>
+												<th>三</th>
+												<th>四</th>
+												<th>五</th>
+												<th>六</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>第一节</th>
+												<td ng-repeat="item in placeStatusList" ng-if="$index<7">
+													<select class="form-control"
+													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+												</td>
+											</tr>
+											<tr>
+												<th>第二节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>6 && $index<14">
+													<select class="form-control"
+													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+													</td>
+											</tr>
+											<tr>
+												<th>第三节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>13 && $index<21">
+													<select class="form-control"
+													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+												</td>
+											</tr>
+											<tr>
+												<th>第四节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>20 && $index<28">
+													<select class="form-control"
+													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+													</td>
+											</tr>
+											<tr>
+												<th>第五节</th>
+												<td ng-repeat="item in placeStatusList"
+													ng-if="$index>27 && $index<35">
+													<select class="form-control"
+													ng-init="placeStatusList[$index].placeStatus = statusTypeList[0]"
+													ng-model="placeStatusList[$index].placeStatus"
+													ng-options="item for item in statusTypeList">
+												</select>
+													</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</form>
+						<!-- 表单结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--列表结束-->
+
+	<div id="goBackTips" class="modal fade" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="m-t-none m-b">提示</h3>
+						<h4>确定放弃添加场地吗？</h4>
+						<div class="pull-right">
+							<button class="btn btn-sm btn-default" data-dismiss="modal">
+								<strong>取消</strong>
+							</button>
+							<button class="btn btn-sm btn-primary" ng-click="goBack()">
+								<strong>确定</strong>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

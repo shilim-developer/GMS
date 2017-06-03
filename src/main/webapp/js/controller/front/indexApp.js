@@ -1,22 +1,17 @@
 var indexApp = angular.module("indexApp",['ui.router','controllers']);
 var baseUrl = "/GMS/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
-	$urlRouterProvider.when("","/userList");
+	$urlRouterProvider.when("","/placeList");
 	$stateProvider
-	.state("userList",{
-		url:"/userList",
-		templateUrl:"views/user/user-list.html",
-		controller:"userList"
+	.state("placeList",{
+		url:"/placeList",
+		templateUrl:"place/place-list.html",
+		controller:"placeList"
 	})
-	.state("addUser",{
-		url:"/addUser",
-		templateUrl:"views/user/user-add.html",
-		controller:"addUser"
-	})
-	.state("editUser",{
-		url:"/editUser/:id",
-		templateUrl:"views/user/user-edit.html",
-		controller:"editUser"
+	.state("leasePlace",{
+		url:"/leasePlace/:id",
+		templateUrl:"place/place-lease.html",
+		controller:"leasePlace"
 	});
 }])
 .config(['$httpProvider',function($httpProvider) {

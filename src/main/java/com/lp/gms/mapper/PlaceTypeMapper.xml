@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.PlaceTypeDao">
+	<resultMap id="BaseResultMap" type="com.lp.gms.model.PlaceType">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="place_type_name" jdbcType="VARCHAR" property="placeTypeName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, place_type_name
+	</sql>
+
+	<!-- 添加场地类型 -->
+	<insert id="insert" parameterType="com.lp.gms.model.PlaceType">
+		insert into place_type (place_type_name)
+		values (#{placeTypeName,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 删除场地类型 -->
+	<delete id="deleteByList" parameterType="java.util.List">
+		delete from place_type
+		where id in
+		<foreach item="placeType" collection="list" open="("
+			separator="," close=")">
+			#{placeType.id}
+		</foreach>
+	</delete>
+
+	<!-- 修改场地类型 -->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.PlaceType">
+		update place_type set
+		place_type_name = #{placeTypeName,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 查询总记录数 -->
+	<select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+		select count(0) from place_type
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					place_type_name like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					place_type_name = #{keyWords}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询列表 -->
+	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from place_type
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					place_type_name like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					place_type_name = #{keyWords}
+				</if>
+			</if>
+		</where>
+		<if test="pageNum > 0 and pageSize > 0">
+			limit #{startColum},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 通过id查询场地 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from place_type
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+</mapper>

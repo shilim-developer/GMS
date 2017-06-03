@@ -61,7 +61,7 @@
 									<th>场地位置</th>
 									<th>场地类型</th>
 									<th>租借费用</th>
-									<th>租借状态</th>
+									<th class="text-center">场地状态</th>
 									<th class="col-lg-1 text-center">操作</th>
 								</tr>
 							</thead>
@@ -73,9 +73,14 @@
 										ng-bind="(placeList.pageNum-1)*placeList.pageSize+$index+1 || 0"></td>
 									<td ng-bind="item.placeName"></td>
 									<td ng-bind="item.placeLocation"></td>
-									<td ng-bind="item.placeType"></td>
+									<td ng-bind="item.placeType.placeTypeName"></td>
 									<td ng-bind="item.cost"></td>
-									<td ng-bind="item.status"></td>
+									<td>
+										<div class="text-center" style="cursor: pointer;"
+											ng-click="showStatus(item.id)">
+											<i class="fa fa-eye"></i> 查看
+										</div>
+									</td>
 									<td class="text-center"><a title="修改"
 										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
 										<a title="删除" ng-click="deleteTips('one',item.id)"><i
@@ -93,7 +98,7 @@
 						<div class="text-right">
 							<button class="btn btn-white btn-sm"
 								ng-click="lastPage(placeList.pageNum-1)">上一页</button>
-							<input type="text" class="form-control page-cout"
+							<input type="number" class="form-control page-cout"
 								ng-model="page.pageNum" ng-blur="toPage()"
 								ng-keyup="toPage($event)" />
 							<button class="btn btn-white btn-sm"
@@ -129,5 +134,70 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- 场地状态框 -->
+	<div id="statusTips" class="modal fade" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title">场地状态</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="table table-bordered my-table">
+								<thead>
+									<tr>
+										<th></th>
+										<th>日</th>
+										<th>一</th>
+										<th>二</th>
+										<th>三</th>
+										<th>四</th>
+										<th>五</th>
+										<th>六</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>第一节</th>
+										<td ng-repeat="item in placeStatusList" ng-if="$index<7" ng-bind="item.placeStatus">
+										</td>
+									</tr>
+									<tr>
+										<th>第二节</th>
+										<td ng-repeat="item in placeStatusList"
+											ng-if="$index>6 && $index<14" ng-bind="item.placeStatus">
+										</td>
+									</tr>
+									<tr>
+										<th>第三节</th>
+										<td ng-repeat="item in placeStatusList"
+											ng-if="$index>13 && $index<21" ng-bind="item.placeStatus">
+										</td>
+									</tr>
+									<tr>
+										<th>第四节</th>
+										<td ng-repeat="item in placeStatusList"
+											ng-if="$index>20 && $index<28" ng-bind="item.placeStatus">
+										</td>
+									</tr>
+									<tr>
+										<th>第五节</th>
+										<td ng-repeat="item in placeStatusList"
+											ng-if="$index>27 && $index<35" ng-bind="item.placeStatus">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

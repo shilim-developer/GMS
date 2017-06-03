@@ -7,7 +7,7 @@ public class Place {
 
     private String placeLocation;
 
-    private String placeType;
+    private PlaceType placeType;
 
     private Integer cost;
 
@@ -37,15 +37,15 @@ public class Place {
         this.placeLocation = placeLocation;
     }
 
-    public String getPlaceType() {
-        return placeType;
-    }
+    public PlaceType getPlaceType() {
+		return placeType;
+	}
 
-    public void setPlaceType(String placeType) {
-        this.placeType = placeType;
-    }
+	public void setPlaceType(PlaceType placeType) {
+		this.placeType = placeType;
+	}
 
-    public Integer getCost() {
+	public Integer getCost() {
         return cost;
     }
 
@@ -66,5 +66,5 @@ public class Place {
 		return "Place [id=" + id + ", placeName=" + placeName + ", placeLocation=" + placeLocation + ", placeType="
 				+ placeType + ", cost=" + cost + ", status=" + status + "]";
 	}
-    
+
 }
