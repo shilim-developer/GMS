@@ -10,11 +10,11 @@
 	<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 		<div class="col-lg-10">
-			<h2>场地管理</h2>
+			<h2>器材管理</h2>
 			<ol class="breadcrumb">
 				<li><a href="#">主页</a></li>
-				<li><a>场地管理</a></li>
-				<li class="active"><strong>类型管理</strong></li>
+				<li><a>器材管理</a></li>
+				<li class="active"><strong>器材列表</strong></li>
 			</ol>
 		</div>
 		<div class="col-lg-2"></div>
@@ -27,7 +27,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>场地类型列表</h5>
+						<h5>器材列表</h5>
 					</div>
 					<div class="ibox-content">
 						<div class="input-group pull-left"
@@ -38,16 +38,16 @@
 						</label>
 						<div class="input-group pull-left" style="margin-left: 10px;">
 							<a data-toggle="modal" class="btn btn-sm  btn-primary"
-								ui-sref="addPlaceType"> <i class="fa fa-plus"></i> 新增场地类型
+								ui-sref="addEquipment"> <i class="fa fa-plus"></i> 添加器材
 							</a>
 						</div>
 						<div class="input-group col-lg-4 pull-right">
 							<input type="text" class="form-control input-sm" name="search"
-								placeholder="输入场地类型名称查找" ng-model="page.keyWords"
-								ng-keyup="searchPlaceType($event)">
+								equipmentholder="输入器材名称查找" ng-model="page.keyWords"
+								ng-keyup="searchEquipment($event)">
 							<div class="input-group-btn">
 								<button class="btn btn-sm btn-primary" data-toggle="modal"
-									ng-click="searchPlaceType()">查询</button>
+									ng-click="searchEquipment()">查询</button>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -56,40 +56,50 @@
 								<tr>
 									<th class="col-lg-1 text-center"><input type="checkbox"
 										class="i-checks" ng-model="checkAll" i-check /></th>
-									<th class="col-lg-1">序号</th>
-									<th>场地类型名称</th>
+									<th>序号</th>
+									<th>器材名称</th>
+									<th>器材类型</th>
+									<th>器材规格</th>
+									<th>器材租借价格</th>
+									<th>器材总数</th>
+									<th>器材可租借数量</th>
 									<th class="col-lg-1 text-center">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="item in placeTypeList.list">
+								<tr ng-repeat="item in equipmentList.list">
 									<td class="text-center"><input type="checkbox"
 										class="i-checks" ng-model="item.checked" i-check /></td>
 									<td
-										ng-bind="(placeTypeList.pageNum-1)*placeTypeList.pageSize+$index+1 || 0"></td>
-									<td ng-bind="item.placeTypeName"></td>
+										ng-bind="(equipmentList.pageNum-1)*equipmentList.pageSize+$index+1 || 0"></td>
+									<td ng-bind="item.equipmentname"></td>
+									<td ng-bind="item.typeid"></td>
+									<td ng-bind="item.estandard"></td>
+									<td ng-bind="item.eprice"></td>
+									<td ng-bind="item.totalnum"></td>
+									<td ng-bind="item.loanablenum"></td>
 									<td class="text-center"><a title="修改"
 										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
 										<a title="删除" ng-click="deleteTips('one',item.id)"><i
 											class="fa fa-trash"></i></a></td>
 								</tr>
-								<tr ng-show="placeTypeList.list.length==0">
+								<tr ng-show="equipmentList.list.length==0">
 									<td class="text-center" colspan="8">没有记录</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="pull-left">
-							共<span ng-bind="placeTypeList.total"></span>条记录 共<span
-								ng-bind="placeTypeList.pages"></span>页
+							共<span ng-bind="equipmentList.total"></span>条记录 共<span
+								ng-bind="equipmentList.pages"></span>页
 						</div>
 						<div class="text-right">
 							<button class="btn btn-white btn-sm"
-								ng-click="lastPage(placeTypeList.pageNum-1)">上一页</button>
+								ng-click="lastPage(equipmentList.pageNum-1)">上一页</button>
 							<input type="number" class="form-control page-cout"
 								ng-model="page.pageNum" ng-blur="toPage()"
 								ng-keyup="toPage($event)" />
 							<button class="btn btn-white btn-sm"
-								ng-click="nextPage(placeTypeList.pageNum+1)">下一页</button>
+								ng-click="nextPage(equipmentList.pageNum+1)">下一页</button>
 						</div>
 					</div>
 				</div>
@@ -112,7 +122,7 @@
 								<strong>取消</strong>
 							</button>
 							<button class="btn btn-sm btn-primary" data-dismiss="modal"
-								ng-click="deletePlaceType()">
+								ng-click="deleteEquipment()">
 								<strong>确定</strong>
 							</button>
 						</div>

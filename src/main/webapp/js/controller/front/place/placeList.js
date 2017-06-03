@@ -136,8 +136,8 @@ controllers.controller("placeList", ['$scope','$http','$state',function($scope,$
 	}
 	
 	//跳转修改页
-	$scope.toEditPage = function(id) {
-		$state.go("editPlace",{id:id});
+	$scope.toLeasePage = function(id) {
+		$state.go("leasePlace",{id:id});
 	}
 
 }]);

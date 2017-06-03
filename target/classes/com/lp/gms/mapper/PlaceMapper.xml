@@ -5,9 +5,10 @@
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="place_name" jdbcType="VARCHAR" property="placeName" />
 		<result column="place_location" jdbcType="VARCHAR" property="placeLocation" />
-		<result column="place_type" jdbcType="VARCHAR" property="placeType" />
 		<result column="cost" jdbcType="INTEGER" property="cost" />
 		<result column="status" jdbcType="BIT" property="status" />
+		<association column="place_type" jdbcType="INTEGER"
+			property="placeType" select="com.lp.gms.dao.PlaceTypeDao.selectByPrimaryKey" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, place_name, place_location, place_type, cost, status
@@ -15,13 +16,16 @@
 
 	<!-- 添加场地 -->
 	<insert id="insert" parameterType="com.lp.gms.model.Place">
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+			select @@IDENTITY as id
+		</selectKey>
 		insert into place (
 		place_name, place_location,
 		place_type, cost)
 		values
 		(#{placeName,jdbcType=VARCHAR},
 		#{placeLocation,jdbcType=VARCHAR},
-		#{placeType,jdbcType=VARCHAR},
+		#{placeType.id,jdbcType=INTEGER},
 		#{cost,jdbcType=INTEGER})
 	</insert>
 
@@ -43,7 +47,7 @@
 		place_location =
 		#{placeLocation,jdbcType=VARCHAR},
 		place_type =
-		#{placeType,jdbcType=VARCHAR},
+		#{placeType.id,jdbcType=INTEGER},
 		cost = #{cost,jdbcType=INTEGER},
 		status =
 		#{status,jdbcType=BIT}
