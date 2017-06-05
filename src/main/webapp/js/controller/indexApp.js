@@ -19,6 +19,44 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		controller:"editPlace"
 	});
 }])
+.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
+	$urlRouterProvider.when("","/gameList");
+	$stateProvider
+	.state("gameList",{
+		url:"/gameList",
+		templateUrl:"views/game/game-list.html",
+		controller:"gameList"
+	})
+	.state("addGame",{
+		url:"/addGame",
+		templateUrl:"views/game/game-add.html",
+		controller:"addGame"
+	})
+	.state("editGame",{
+		url:"/editGame/:id",
+		templateUrl:"views/game/game-edit.html",
+		controller:"editGame"
+	});
+}])
+.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
+	$urlRouterProvider.when("","/postList");
+	$stateProvider
+	.state("postList",{
+		url:"/postList",
+		templateUrl:"views/post/post-list.html",
+		controller:"postList"
+	})
+	.state("addPost",{
+		url:"/addPost",
+		templateUrl:"views/post/post-add.html",
+		controller:"addPost"
+	})
+	.state("editPost",{
+		url:"/editPost/:id",
+		templateUrl:"views/post/post-edit.html",
+		controller:"editPost"
+	});
+}])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){
 		var str=[];

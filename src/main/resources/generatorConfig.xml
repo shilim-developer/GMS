@@ -9,7 +9,7 @@
 			<property name="suppressDate" value="true" />
 		</commentGenerator>
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/gms"
-			driverClass="com.mysql.jdbc.Driver" password="shilim" userId="root" />
+			driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
 		<javaModelGenerator targetPackage="com.lp.gms.model"
 			targetProject="GMS\src\main\java" />
 		<sqlMapGenerator targetPackage="com.lp.gms.mapper"
@@ -20,5 +20,14 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false" />
+		<table tableName="game" domainObjectName="Game" mapperName="GameDao"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
+		<table tableName="post" domainObjectName="Post" mapperName="PostDao"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false" />
 	</context>
+	
 </generatorConfiguration>
