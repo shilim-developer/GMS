@@ -1,7 +1,7 @@
 controllers.controller("roleList", ['$scope','$http','$state',function($scope,$http,$state) {
 	$scope.checkAll = false;//全选
 	$scope.roleList = [];
-	$scope.page = new RoleVo();
+	$scope.page = new PageVo();
 
 
 	$scope.page.pageNum = 1;

@@ -1,4 +1,4 @@
-controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',function($scope,$http,$state) {
+controllers.controller("placeLeaseRecordList", ['$scope','$http','$state','loginCheckService',function($scope,$http,$state,loginCheckService) {
 	$scope.checkAll = false;//全选
 	$scope.placeLeaseRecordList = [];
 	$scope.placeStatusList = [];
@@ -19,6 +19,7 @@ controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',functi
 				$scope.placeLeaseRecordList = data.resultParam;
 				$scope.page.pageNum = $scope.placeLeaseRecordList.pageNum;
 			} else {
+				loginCheckService.loginCheck(data.serviceResult);
 				toastr.error('获取数据', '失败');
 			}
 		})
@@ -69,6 +70,7 @@ controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',functi
 				$scope.placeStatusList = data.resultParam;
 				$("#statusTips").modal("show");
 			} else {
+				loginCheckService.loginCheck(data.serviceResult);
 				toastr.error('获取数据', '失败');
 			}
 		})
@@ -130,11 +132,21 @@ controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',functi
 		var data = {placeList:JSON.stringify(placeList)};
 		$http.post(url,data)
 		.success(function(data) {
-			toastr.success('删除场地', '成功');
-			$scope.getPlaceList();
+			if(data.serviceResult == 1) {
+				toastr.success('删除场地', '成功');
+				$scope.getPlaceList();
+			} else {
+				loginCheckService.loginCheck(data.serviceResult);
+				toastr.error('删除场地', '失败');
+			}
+			
+		})
+		.error(function(data) {
+			toastr.error('系统繁忙', '删除场地');
 		});
 	}
 	
+	//显示租借反馈窗口
 	$scope.openResultModal = function(result) {
 		$scope.result = result;
 		$("#resultTips").modal("show");

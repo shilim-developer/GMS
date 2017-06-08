@@ -1,4 +1,4 @@
-controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',function($scope,$http,$state) {
+controllers.controller("placeLeaseRecordList", ['$scope','$http','$state','loginCheckService',function($scope,$http,$state,loginCheckService) {
 	$scope.checkAll = false;//全选
 	$scope.placeLeaseRecordList = [];
 	$scope.checkType = ["审核通过","审核不通过"];
@@ -8,11 +8,11 @@ controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',functi
 
 	$scope.page.pageNum = 1;
 	$scope.page.pageSize = 3;
-	//获取场地列表
+	//获取场地租借列表
 	$scope.getPlaceLeaseRecordList = function() {
 		//是否存在缓存页数
 		if(sessionStorage.placeLeaseRecordListPageNum) $scope.page.pageNum = sessionStorage.placeLeaseRecordListPageNum;
-		var url = baseUrl + "placeLeaseRecordFront/selectPlaceLeaseRecordList?page=" + $scope.page.voToJson();
+		var url = baseUrl + "placeLeaseRecordManage/selectPlaceLeaseRecordList?page=" + $scope.page.voToJson();
 		$http.get(url)
 		.success(function(data) {
 			console.log(data);
@@ -20,6 +20,7 @@ controllers.controller("placeLeaseRecordList", ['$scope','$http','$state',functi
 				$scope.placeLeaseRecordList = data.resultParam;
 				$scope.page.pageNum = $scope.placeLeaseRecordList.pageNum;
 			} else {
+				loginCheckService.loginCheck(data.serviceResult);
 				toastr.error('获取数据', '失败');
 			}
 		})

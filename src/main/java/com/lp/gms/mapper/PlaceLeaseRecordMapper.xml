@@ -56,7 +56,7 @@
 		plr.id, plr.place_id, plr.start_time, plr.end_time, plr.user_id,
 		plr.cost, plr.result, plr.pay_status, plr.check_status,
 		p.place_name,
-		u.account
+		u.account,u.name
 		from place_lease_record plr
 		left join place p on plr.place_id
 		= p.id

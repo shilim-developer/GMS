@@ -22,6 +22,26 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/",
 		templateUrl:"welcome/index.html"
 	})
+	 .state("userList",{
+		url:"/userList",
+		templateUrl:"user/user-list.html",
+		controller:"userList"
+	})
+   .state("addUser",{
+	    url:"/addUser",
+		templateUrl:"user/user-add.html",
+		controller:"addUser"
+	})
+   .state("editUser",{
+		url:"/editUser/:id",
+	    templateUrl:"user/user-edit.html",
+		controller:"editUser"
+    })
+    .state("roleList",{
+		url:"/roleList",
+	    templateUrl:"role/role-list.html",
+		controller:"roleList"
+    })
 	.state("placeList",{
 		url:"/placeList",
 		templateUrl:"place/place-list.html",
@@ -42,21 +62,7 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		templateUrl:"place-lease-record/place-lease-record-list.html",
 		controller:"placeLeaseRecordList"
 	})
-   .state("userList",{
-		url:"/userList",
-		templateUrl:"User/user-list.html",
-		controller:"userList"
-	})
-   .state("addUser",{
-	    url:"/addUser",
-		templateUrl:"User/user-add.html",
-		controller:"addUser"
-	})
-   .state("editUser",{
-		url:"/editUser/:id",
-	    templateUrl:"User/user-edit.html",
-		controller:"editUser"
-    });
+  ;
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){

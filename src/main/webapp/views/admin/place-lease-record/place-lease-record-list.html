@@ -68,7 +68,7 @@
 									<td
 										ng-bind="(placeLeaseRecordList.pageNum-1)*placeLeaseRecordList.pageSize+$index+1 || 0"></td>
 									<td ng-bind="item.place.placeName"></td>
-									<td ng-bind="item.user.account"></td>
+									<td ng-bind="item.user.name"></td>
 									<td ng-bind="item.startTime | dateFormat"></td>
 									<td ng-bind="item.endTime | dateFormat"></td>
 									<td ng-bind="item.cost"></td>
