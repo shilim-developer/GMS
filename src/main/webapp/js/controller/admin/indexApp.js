@@ -3,6 +3,21 @@ var baseUrl = "/GMS/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
 	$urlRouterProvider.when("","/placeList");
 	$stateProvider
+	.state("placeTypeList",{
+		url:"/placeTypeList",
+		templateUrl:"place-type/place-type-list.html",
+		controller:"placeTypeList"
+	})
+	.state("addPlaceType",{
+		url:"/addPlaceType",
+		templateUrl:"place-type/place-type-add.html",
+		controller:"addPlaceType"
+	})
+	.state("editPlaceType",{
+		url:"/editPlaceType/:id",
+		templateUrl:"place-type/place-type-edit.html",
+		controller:"editPlaceType"
+	})
 	.state("placeList",{
 		url:"/placeList",
 		templateUrl:"place/place-list.html",
@@ -17,6 +32,11 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/editPlace/:id",
 		templateUrl:"place/place-edit.html",
 		controller:"editPlace"
+	})
+	.state("placeLeaseRecordList",{
+		url:"/placeLeaseRecordList",
+		templateUrl:"place-lease-record/place-lease-record-list.html",
+		controller:"placeLeaseRecordList"
 	});
 }])
 .config(['$httpProvider',function($httpProvider) {
