@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lp.gms.constant.ResultCode;
+import com.lp.gms.dao.PlaceDao;
 import com.lp.gms.dao.PlaceTypeDao;
 import com.lp.gms.model.Page;
 import com.lp.gms.model.PageInfo;
@@ -18,6 +19,8 @@ import com.lp.gms.model.ResultMessage;
 public class PlaceTypeService {
 	@Autowired
 	private PlaceTypeDao placeTypeDao;
+	@Autowired
+	private PlaceDao placeDao;
 	
 	public ResultMessage addPlaceType(PlaceType placeType) throws Exception {
 		placeTypeDao.insert(placeType);
@@ -25,6 +28,11 @@ public class PlaceTypeService {
 	}
 	
 	public ResultMessage deletePlaceType(List<PlaceType> placeTypes) throws Exception {
+		for(PlaceType placeType : placeTypes) {
+			if(placeDao.selectByPlaceTypeId(placeType.getId()) != null) {
+				return new ResultMessage(true, ResultCode.FAIL, "该类型正在被使用", null);
+			}
+		}
 		placeTypeDao.deleteByList(placeTypes);
 		return new ResultMessage(true, ResultCode.SUCCESS, "删除成功", null);
 	}
