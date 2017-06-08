@@ -39,5 +39,20 @@ public interface PermissionDao {
      * @return tatal
      */
     long selectCount(Page page);
+    
+    /**
+     * 根据用户ID查询该用户所拥有的权限列表
+     * @param UserId
+     * @return
+     */
+    List<Permission> findListPermissionByUserId(Long userId);
+    
+    /**
+     * 根据用户ID查询用户菜单列表
+     * @param UserId
+     * @return
+     */
+    List<Permission> findMenuListByUserId(Long userId);
+    
 	
 }

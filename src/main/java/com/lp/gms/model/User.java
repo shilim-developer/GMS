@@ -15,11 +15,21 @@ public class User {
 
     private String mobilephone;
 
-    private String address;
+	private String address;
 
     private Byte status;
+    
+    public Role getRole() {
+		return role;
+	}
 
-	public Long getId() {
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	private Role role;
+
+    public Long getId() {
         return id;
     }
 
@@ -90,11 +100,6 @@ public class User {
     public void setStatus(Byte status) {
         this.status = status;
     }
-    
-    @Override
-	public String toString() {
-		return "User [id=" + id + ", account=" + account + ", password=" + password + ", name=" + name + ", cardno="
-				+ cardno + ", email=" + email + ", mobilephone=" + mobilephone + ", address=" + address + ", status="
-				+ status + "]";
-	}
+
+
 }

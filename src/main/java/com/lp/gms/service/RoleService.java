@@ -63,5 +63,10 @@ public class RoleService {
 		PageInfo<Role> pageInfo = new PageInfo<Role>(page, total, roles);
 		return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
 	}
+	
+	public ResultMessage selectAll() throws Exception {
+		List<Role> rList = roleDao.selectAll();
+		return new ResultMessage(true,ResultCode.SUCCESS,"查找成功",rList);
+	}
 
 }

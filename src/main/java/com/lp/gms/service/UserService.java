@@ -17,6 +17,7 @@ import com.lp.gms.model.ResultMessage;
 import com.lp.gms.model.Role;
 import com.lp.gms.model.User;
 import com.lp.gms.model.UserRole;
+import com.lp.gms.utils.MD5Utils;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -25,6 +26,8 @@ public class UserService {
 	private UserDao userDao;
 	
 	public ResultMessage addUser(User user) throws Exception {
+		String password = MD5Utils.md5(user.getPassword());
+		user.setPassword(password);
 		userDao.insert(user);
 		return new ResultMessage(true,ResultCode.SUCCESS,"添加成功",null);
 	}
@@ -53,17 +56,26 @@ public class UserService {
 	}
 
 	public ResultMessage selectRole(User user) throws Exception {
+		int isExist = userDao.userNameExits(user.getAccount());
+		return new ResultMessage(true,ResultCode.SUCCESS,"查询成功",isExist);
+	}
+	
+	public ResultMessage userAccountExist(User user) throws Exception {
 		List<Role> role = userDao.findRole(user.getId());
-		//TODO 通过RoleDao查找
 		return new ResultMessage(true,ResultCode.SUCCESS,"查询成功",role);
 	}
 	
-	public ResultMessage login(String account, String password) {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("account", account);
-		map.put("password", password);
-		User user = userDao.login(map);
-		return new ResultMessage(true,ResultCode.SUCCESS,"登录成功",user);
+	public ResultMessage login(User user) {
+		String password = MD5Utils.md5(user.getPassword());
+		user.setPassword(password);
+        User rUser = userDao.accountValid(user);
+        ResultMessage resultMessage = null;
+        if(rUser == null) {
+        	resultMessage = new ResultMessage(false,ResultCode.NO_LOGIN,"用户名或者密码错误",null);
+        }else {
+        	resultMessage = new ResultMessage(true,ResultCode.SUCCESS,"登录成功",rUser);
+        }
+		return resultMessage;
 	}
 	
 	public ResultMessage deletByList(List<User> list) {
