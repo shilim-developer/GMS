@@ -1,7 +1,7 @@
 var indexApp = angular.module("indexApp",['ui.router','controllers']);
 var baseUrl = "/GMS/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
-	$urlRouterProvider.when("","/placeList");
+	$urlRouterProvider.when("","/");
 	$stateProvider
 	.state("placeTypeList",{
 		url:"/placeTypeList",
@@ -17,6 +17,10 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/editPlaceType/:id",
 		templateUrl:"place-type/place-type-edit.html",
 		controller:"editPlaceType"
+	})
+	.state("welcome",{
+		url:"/",
+		templateUrl:"welcome/index.html"
 	})
 	.state("placeList",{
 		url:"/placeList",
@@ -37,7 +41,22 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/placeLeaseRecordList",
 		templateUrl:"place-lease-record/place-lease-record-list.html",
 		controller:"placeLeaseRecordList"
-	});
+	})
+   .state("userList",{
+		url:"/userList",
+		templateUrl:"User/user-list.html",
+		controller:"userList"
+	})
+   .state("addUser",{
+	    url:"/addUser",
+		templateUrl:"User/user-add.html",
+		controller:"addUser"
+	})
+   .state("editUser",{
+		url:"/editUser/:id",
+	    templateUrl:"User/user-edit.html",
+		controller:"editUser"
+    });
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){

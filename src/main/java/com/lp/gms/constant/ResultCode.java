@@ -12,4 +12,8 @@ public interface ResultCode {
 	Integer FAIL = 2;
 	//参数错误
 	Integer ILLEGAL_ARGUMENT = 3;
+	//登录失败
+	Integer NO_LOGIN = 4;
+	//没有权限登录
+	Integer NO_PERMISSION = 5;
 }

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.RoleDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.Role">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, description, status, type
+  </sql>
+      <sql id="sql_column_where">
+        <if test="id !=null ">
+            AND id = #{id}
+        </if>
+        <if test="description !=null and description.length() != 0">
+            AND description = #{description}
+        </if>
+        <if test="status !=null ">
+            AND status = #{status}
+        </if>
+        <if test="type !=null ">
+            AND type = #{type}
+        </if>
+    </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gym_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from gym_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lp.gms.model.Role">
+    insert into gym_role (id, description, status, 
+      type)
+    values (#{id,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lp.gms.model.Role">
+    insert into gym_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.Role">
+    update gym_role
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Role">
+    update gym_role
+    set description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectCounts" resultType="integer">'
+      SELECT count(*)
+      FROM gym_role
+      WHERE status = 1
+  </select>
+  <select id="isExistName" resultType="java.lang.Boolean">
+      SELECT exists(
+              SELECT *
+              FROM gym_role
+              WHERE status = 1 AND description = #{description}
+      )
+  </select>
+  <select id="isExistNameExcludeId" resultType="java.lang.Boolean">
+      SELECT exists(
+              SELECT *
+              FROM gym_role
+              WHERE status = 1 AND id != #{id} AND description = #{description}
+      )
+  </select>
+  <select id="findRoleByUserId" resultType="java.lang.String">
+     select r.type from gym_role r,gym_user_role ur where ur.rid and ur.uid = #{id,jdbcType=BIGINT}
+  </select>
+    <!-- 选择角色给用户 ，checkbox 列表-->
+  <select id="selectRoleByUserId" resultType="com.lp.gms.model.Role">
+		select ur.id,ur.description,ur.type,ifnull(uu.id,0)marker from gym_role ur
+		left join gym_user_role uur on uur.uid = ur.id
+		left join (select id from gym_user where id =#{id,jdbcType=BIGINT}) uu on uu.id = uur.uid
+		group by ur.id
+  </select>
+    <!-- Mybatis 一对多  begin -->
+  
+  <!-- 查询用户全部的role & permission -->
+  <resultMap id="findNowAllPermission_resultMap" extends="BaseResultMap" type="com.lp.gms.model.Role" >
+  	<collection property="permissions" javaType="com.lp.gms.model.Permission">
+  	 	<id column="pid" property="id" jdbcType="BIGINT" />
+    	<result column="pDescription" property="description" jdbcType="VARCHAR" />
+        <result column="pUrl" property="matchUrl" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  <!-- 根据用户ID，查询所有权限 -->
+  <select id="findNowAllPermission" resultMap="findNowAllPermission_resultMap">
+	select ur.id,ur.description,ur.status,ur.type,up.id pid,up.matchUrl,up.description pname 
+		from (select rid from gym_user_role where uid = #{userId,jdbcType=BIGINT}) uur 
+		left join gym_role ur on uur.rid = ur.id
+		left join gym_role_permission urp on urp.rid = ur.id
+		left join gym_permission up on up.id = urp.pid
+  </select>
+   <!-- Mybatis 一对多  end -->
+   <select id="selectAll" resultType="com.lp.gms.model.Role">
+     select * from gym_role where status = 1
+   </select>
+   <select id="select" >
+        select * from gym_role where
+        <where>
+            <include refid="sql_column_where"/>
+        </where>
+   </select>
+     <!-- 分页查询用户列表 -->
+   <select id="selectByPage" parameterType="com.lp.gms.model.Page" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gym_role
+    <where>
+      <if test="keyWords != null and keyWords != ''">
+        <if test="fuzzy == true">
+          description like '%' #{keyWords} '%'
+        </if>
+        <if test="fuzzy == false">
+          description = #{keyWords}
+        </if>
+      </if>
+    </where>
+    <if test="pageNum > 0 and pageSize > 0">
+      limit #{startColum},#{pageSize}
+    </if>
+  </select>
+  <select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+	    select count(0) from gym_role
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					description like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					description = #{keyWords}
+				</if>
+			</if>
+		</where>
+  </select>
+</mapper>

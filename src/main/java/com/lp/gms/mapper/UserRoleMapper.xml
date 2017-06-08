@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.UserRoleDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.UserRole">
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="rid" jdbcType="BIGINT" property="rid" />
+  </resultMap>
+  <insert id="insert" parameterType="com.lp.gms.model.UserRole">
+    insert into gym_user_role (uid, rid)
+    values (#{uid,jdbcType=BIGINT}, #{rid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lp.gms.model.UserRole">
+    insert into gym_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="rid != null">
+        rid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="rid != null">
+        #{rid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByUserId">
+    delete from gym_user_role where uid = #{id,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteRoleByUserIds">
+  	delete from u_user_role where uid in(${userIds})
+  </delete>
+    <!-- 根据用户roleId查询用户ID -->
+  <select id="findUserIdByRoleId" resultType="long">
+  	select uid from gym_user_role where rid =  #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

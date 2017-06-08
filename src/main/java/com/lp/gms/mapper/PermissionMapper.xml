@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.PermissionDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.Permission">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="matchUrl" jdbcType="VARCHAR" property="matchurl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, description, matchUrl
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gym_permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from gym_permission
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lp.gms.model.Permission">
+    insert into gym_permission (id, description, matchUrl
+      )
+    values (#{id,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, #{matchurl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lp.gms.model.Permission">
+    insert into gym_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="matchurl != null">
+        matchUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="matchurl != null">
+        #{matchurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.Permission">
+    update gym_permission
+    <set>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="matchurl != null">
+        matchUrl = #{matchurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Permission">
+    update gym_permission
+    set description = #{description,jdbcType=VARCHAR},
+      matchUrl = #{matchurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectPermissionById" resultType="com.lp.gms.model.PermissionBo">
+    select up.id,ur.id roleId,up.description,up.matchUrl,ifnull(ur.id,0)marker from gym_permission up
+    left join gym_role_permission urp on urp.pid = up.id
+    left join (select id from gym_role where id = #{id,jdbcType=BIGINT}) ur on ur.id = urp.rid
+    group by up.id
+  </select>
+  <select id="findPermissionByUserId" resultType="java.lang.String">
+       select p.matchUrl from gym_permission p , gym_role_permission rp, gym_user_role ur
+       where uid = #{id,jdbcType=BIGINT} and p.id = rp.pid and rp.rid = ur.rid
+  </select>
+  <select id="findListPermissionByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+      select
+          *
+      from
+          gym_permission p
+      where
+          p.id in
+          (select 
+              rp.pid
+           from
+              gym_role_permission rp
+           where
+              rp.rid in (
+                  select
+                      ur.rid
+                  from
+                      gym_user_role ur
+                  where
+                      ur.uid = #{userId}
+              )
+          )
+  </select>
+  <select id="findMenuListByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  		SELECT
+		*
+		FROM
+		gym_permission p
+		WHERE
+        p.id IN
+		(SELECT
+		rp.pid
+		FROM
+		gym_role_permission rp
+		WHERE
+		rp.rid IN (
+		SELECT
+		ur.rid
+		FROM
+		gym_user_role ur
+		WHERE
+		ur.uid = #{userId}
+		)
+		) order by p.sort asc;
+  </select>
+</mapper>
