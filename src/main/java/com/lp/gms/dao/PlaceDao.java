@@ -50,5 +50,12 @@ public interface PlaceDao {
 	 * @return
 	 */
     Place selectByPrimaryKey(Integer id);
+    
+    /**
+     * 通过场地类型id查询场地
+     * @param typeId
+     * @return
+     */
+    Place selectByPlaceTypeId(Integer typeId);
 
 }

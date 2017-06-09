@@ -31,12 +31,11 @@ loginApp.controller("login", ['$scope','$http','$window',function($scope,$http,$
 				//跳转到首页
 				$window.location.href = "index.html";
 			} else {
-				console.log(data.userToken);
-				toastr.error('登录', '失败');
+				toastr.error('失败', data.resultInfo);
 			}
 		})
 		.error(function(data) {
-			console.log(data.userToken);
+			toastr.error('登陆', "网络繁忙");
 		});
 	}
 	

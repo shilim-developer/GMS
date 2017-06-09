@@ -30,8 +30,8 @@
 								src="../../img/profile_small.jpg" />
 							</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear"> <span class="block m-t-xs"> <strong
-										class="font-bold">{{shilim}}</strong>
-								</span> <span class="text-muted text-xs block">大学生 <b
+										class="font-bold">{{sysUser.account}}</strong>
+								</span> <span class="text-muted text-xs block">个人中心<b
 										class="caret"></b></span>
 							</span>
 							</a>
@@ -58,7 +58,7 @@
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li><a ui-sref="placeList">场地列表</a></li>
-							<li><a ui-sref="placeList">租借记录</a></li>
+							<li><a ui-sref="placeLeaseRecordList">租借记录</a></li>
 						</ul></li>
 					<li class=""><a><i
 							class="fa fa-delicious"></i> <span class="nav-label">器材租借</span><span
@@ -138,6 +138,9 @@
 
 	<!-- iCheck -->
 	<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+	
+	<!-- utils -->
+	<script src="../../js/utils/utils.js"></script>
 
 	<!--angularjs-->
 	<script src="../../js/angular/angular.js" type="text/javascript"
@@ -146,6 +149,8 @@
 		type="text/javascript" charset="utf-8"></script>
 
 	<!--models-->
+	<script src="../../js/models/UserVo.js" type="text/javascript"
+		charset="utf-8"></script>
 	<script src="../../js/models/PageVo.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../../js/models/PlaceTypeVo.js" type="text/javascript"
@@ -153,6 +158,8 @@
 	<script src="../../js/models/PlaceVo.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../../js/models/PlaceStatusVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PlaceLeaseRecordVo.js" type="text/javascript"
 		charset="utf-8"></script>
 
 	<!--contorllers-->
@@ -164,6 +171,16 @@
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/front/place/leasePlace.js"
 		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/front/placeLeaseRecord/placeLeaseRecordList.js"
+		type="text/javascript" charset="utf-8"></script>
+		
+	<!-- services -->
+	<script src="../../js/services/loginCheckService.js" type="text/javascript"
+		charset="utf-8"></script>
+		
+	<!-- filters -->
+	<script src="../../js/filters/filters.js" type="text/javascript"
+		charset="utf-8"></script>
 
 	<!-- directives -->
 	<script src="../../js/directives/directives.js" type="text/javascript"

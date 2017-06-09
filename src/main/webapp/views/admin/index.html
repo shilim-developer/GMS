@@ -30,8 +30,8 @@
 								src="../../img/profile_small.jpg" />
 							</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear"> <span class="block m-t-xs"> <strong
-										class="font-bold">{{user.name}}</strong>
-								</span> <span class="text-muted text-xs block" ng-bind="user.role.description"> <b
+										class="font-bold" ng-bind="user.name"></strong>
+								</span> <span class="text-muted text-xs block" ng-bind="user.role.description"><b
 										class="caret"></b></span>
 							</span>
 							</a>
@@ -39,30 +39,28 @@
 								<li><a href="#">个人信息</a></li>
 								<li><a href="#">管理记录</a></li>
 								<li class="divider"></li>
-								<li><a href="login.html">注销</a></li>
+								<li><a href="#">注销</a></li>
 							</ul>
 						</div>
 						<div class="logo-element">GMS</div>
 					</li>
 					<!--个人信息结束-->
 					<li ng-show="user.role.description == '超级管理员'" class=""><a><i
-							class="fa fa-delicious"></i> <span class="nav-label">用户管理</span><span
+							class="fa fa-users"></i> <span class="nav-label">用户管理</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li><a ui-sref="userList">用户管理</a></li>
 							<li><a ui-sref="roleList">角色管理</a></li>
-						</ul></li>
-					<li ng-show="user.role.description == '场地管理员'" class=""><a><i
+						</ul>
+					</li>
+					<li ng-show="user.role.description == '超级管理员' || user.role.description == '场地管理员'" class=""><a><i
 							class="fa fa-delicious"></i> <span class="nav-label">场地管理</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a >类型管理</a></li>
+							<li><a ui-sref="placeTypeList">类型管理</a></li>
 							<li><a ui-sref="placeList">场地管理</a></li>
-							<li><a >租借管理</a></li>
+							<li><a ui-sref="placeLeaseRecordList">租借管理</a></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-diamond"></i> <span
-							class="nav-label">其他</span> <span
-							class="label label-primary pull-right">NEW</span></a></li>
 				</ul>
 
 			</div>
@@ -128,20 +126,29 @@
 	<!-- iCheck -->
 	<script src="../../js/plugins/iCheck/icheck.min.js"></script>
 
+	<!-- utils -->
+	<script src="../../js/utils/utils.js"></script>
+
 	<!--angularjs-->
 	<script src="../../js/angular/angular.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../../js/angular/angular-ui-router.min.js"
 		type="text/javascript" charset="utf-8"></script>
-
+		
 	<!--models-->
-	<script src="../../js/models/PageVo.js" type="text/javascript"
-		charset="utf-8"></script>
-	<script src="../../js/models/PlaceVo.js" type="text/javascript"
-		charset="utf-8"></script>
 	<script src="../../js/models/UserVo.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../../js/models/RoleVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PageVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PlaceTypeVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PlaceVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PlaceStatusVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PlaceLeaseRecordVo.js" type="text/javascript"
 		charset="utf-8"></script>
 
 	<!--contorllers-->
@@ -149,12 +156,7 @@
 		charset="utf-8"></script>
 	<script src="../../js/controller/admin/indexApp.js"
 		type="text/javascript" charset="utf-8"></script>
-	<script src="../../js/controller/admin/place/placeList.js"
-		type="text/javascript" charset="utf-8"></script>
-	<script src="../../js/controller/admin/place/addPlace.js"
-		type="text/javascript" charset="utf-8"></script>
-	<script src="../../js/controller/admin/place/editPlace.js"
-		type="text/javascript" charset="utf-8"></script>
+	<!-- user -->
 	<script src="../../js/controller/admin/user/userList.js"
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/admin/user/editUser.js"
@@ -163,7 +165,30 @@
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/admin/role/roleList.js"
 		type="text/javascript" charset="utf-8"></script>
+	<!-- place -->
+	<script src="../../js/controller/admin/placeType/placeTypeList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/placeType/addPlaceType.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/placeType/editPlaceType.js"
+		type="text/javascript" charset="utf-8"></script>		
+	<script src="../../js/controller/admin/place/placeList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/place/addPlace.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/place/editPlace.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/placeLeaseRecord/placeLeaseRecordList.js"
+		type="text/javascript" charset="utf-8"></script>
 		
+	<!-- services -->
+	<script src="../../js/services/loginCheckService.js" type="text/javascript"
+		charset="utf-8"></script>
+		
+	<!-- filters -->
+	<script src="../../js/filters/filters.js" type="text/javascript"
+		charset="utf-8"></script>
+
 	<!-- directives -->
 	<script src="../../js/directives/directives.js" type="text/javascript"
 		charset="utf-8"></script>

@@ -3,10 +3,45 @@ var baseUrl = "/GMS/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
 	$urlRouterProvider.when("","/");
 	$stateProvider
+	.state("placeTypeList",{
+		url:"/placeTypeList",
+		templateUrl:"place-type/place-type-list.html",
+		controller:"placeTypeList"
+	})
+	.state("addPlaceType",{
+		url:"/addPlaceType",
+		templateUrl:"place-type/place-type-add.html",
+		controller:"addPlaceType"
+	})
+	.state("editPlaceType",{
+		url:"/editPlaceType/:id",
+		templateUrl:"place-type/place-type-edit.html",
+		controller:"editPlaceType"
+	})
 	.state("welcome",{
 		url:"/",
 		templateUrl:"welcome/index.html"
 	})
+	 .state("userList",{
+		url:"/userList",
+		templateUrl:"user/user-list.html",
+		controller:"userList"
+	})
+   .state("addUser",{
+	    url:"/addUser",
+		templateUrl:"user/user-add.html",
+		controller:"addUser"
+	})
+   .state("editUser",{
+		url:"/editUser/:id",
+	    templateUrl:"user/user-edit.html",
+		controller:"editUser"
+    })
+    .state("roleList",{
+		url:"/roleList",
+	    templateUrl:"role/role-list.html",
+		controller:"roleList"
+    })
 	.state("placeList",{
 		url:"/placeList",
 		templateUrl:"place/place-list.html",
@@ -22,26 +57,12 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		templateUrl:"place/place-edit.html",
 		controller:"editPlace"
 	})
-   .state("userList",{
-		url:"/userList",
-		templateUrl:"User/user-list.html",
-		controller:"userList"
+	.state("placeLeaseRecordList",{
+		url:"/placeLeaseRecordList",
+		templateUrl:"place-lease-record/place-lease-record-list.html",
+		controller:"placeLeaseRecordList"
 	})
-   .state("addUser",{
-	    url:"/addUser",
-		templateUrl:"User/user-add.html",
-		controller:"addUser"
-	})
-   .state("editUser",{
-		url:"/editUser/:id",
-	    templateUrl:"User/user-edit.html",
-		controller:"editUser"
-    })
-	.state("roleList",{
-		url:"/roleList",
-		templateUrl:"role/role-list.html",
-		controller:"roleList"
-	});
+  ;
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){

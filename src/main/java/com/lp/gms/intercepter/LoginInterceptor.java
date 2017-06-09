@@ -43,7 +43,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         } else if(namespace.contains("Manage") && methodName.equals("login") ){
         	invocation.invoke();
         }
-        else if (namespace.contains("Manage")) {
+        else if (namespace.contains("Manage") || namespace.contains("Front")) {
         	Map<String, Object> session = ActionContext.getContext().getSession();
         	if(session.get("user") == null) {
         		noLoginReturn(new ResultMessage(false, ResultCode.NO_LOGIN, "没有登录", null));

@@ -12,6 +12,11 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/leasePlace/:id",
 		templateUrl:"place/place-lease.html",
 		controller:"leasePlace"
+	})
+	.state("placeLeaseRecordList",{
+		url:"/placeLeaseRecordList",
+		templateUrl:"place-lease-record/place-lease-record-list.html",
+		controller:"placeLeaseRecordList"
 	});
 }])
 .config(['$httpProvider',function($httpProvider) {

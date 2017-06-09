@@ -95,50 +95,75 @@
 											<tr>
 												<th>第一节</th>
 												<td ng-repeat="item in placeStatusList" ng-if="$index<7">
-													<select class="form-control"
+													<select ng-if="placeStatusList[$index].placeStatus=='上课' ||
+													placeStatusList[$index].placeStatus=='空闲'" class="form-control"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
-												</select>
+												   </select>
+													<span ng-if="placeStatusList[$index].placeStatus!='上课' &&
+													placeStatusList[$index].placeStatus!='空闲'" 
+													ng-bind="placeStatusList[$index].placeStatus"
+													style="line-height: 40px;padding-left:15px"></span>
 												</td>
 											</tr>
 											<tr>
 												<th>第二节</th>
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>6 && $index<14">
-													<select class="form-control"
+													<select ng-if="placeStatusList[$index].placeStatus=='上课' ||
+													placeStatusList[$index].placeStatus=='空闲'" class="form-control"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
+												<span ng-if="placeStatusList[$index].placeStatus!='上课' &&
+													placeStatusList[$index].placeStatus!='空闲'" 
+													ng-bind="placeStatusList[$index].placeStatus"
+													style="line-height: 40px;padding-left:15px"></span>
 													</td>
 											</tr>
 											<tr>
 												<th>第三节</th>
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>13 && $index<21">
-													<select class="form-control"
+													<select ng-if="placeStatusList[$index].placeStatus=='上课' ||
+													placeStatusList[$index].placeStatus=='空闲'" class="form-control"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
+												<span ng-if="placeStatusList[$index].placeStatus!='上课' &&
+													placeStatusList[$index].placeStatus!='空闲'" 
+													ng-bind="placeStatusList[$index].placeStatus"
+													style="line-height: 40px;padding-left:15px"></span>
 												</td>
 											</tr>
 											<tr>
 												<th>第四节</th>
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>20 && $index<28">
-													<select class="form-control"
+													<select ng-if="placeStatusList[$index].placeStatus=='上课' ||
+													placeStatusList[$index].placeStatus=='空闲'" class="form-control"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
+												<span ng-if="placeStatusList[$index].placeStatus!='上课' &&
+													placeStatusList[$index].placeStatus!='空闲'" 
+													ng-bind="placeStatusList[$index].placeStatus"
+													style="line-height: 40px;padding-left:15px"></span>
 													</td>
 											</tr>
 											<tr>
 												<th>第五节</th>
 												<td ng-repeat="item in placeStatusList"
 													ng-if="$index>27 && $index<35">
-													<select class="form-control"
+													<select ng-if="placeStatusList[$index].placeStatus=='上课' ||
+													placeStatusList[$index].placeStatus=='空闲'" class="form-control"
 													ng-model="placeStatusList[$index].placeStatus"
 													ng-options="item for item in statusTypeList">
 												</select>
+												<span ng-if="placeStatusList[$index].placeStatus!='上课' &&
+													placeStatusList[$index].placeStatus!='空闲'" 
+													ng-bind="placeStatusList[$index].placeStatus"
+													style="line-height: 40px;padding-left:15px"></span>
 													</td>
 											</tr>
 										</tbody>

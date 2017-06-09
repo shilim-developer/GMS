@@ -31,7 +31,6 @@ public class UserAction extends ActionSupport {
 	/**
 	 * 结果信息
 	 */
-	@SuppressWarnings("unused")
 	private ResultMessage resultMessage;
 	
 	/**
@@ -65,6 +64,7 @@ public class UserAction extends ActionSupport {
 	public void login() throws Exception {
 		resultMessage = userService.login(JsonUtil.jsonToObject(user,User.class));
 		User user = (User) resultMessage.getResultParam();
+		if(user == null) return;
 		String roleName = user.getRole().getDescription();
 		if(resultMessage.getResultParam() != null) {
 			Map<String, Object> session = ActionContext.getContext().getSession();

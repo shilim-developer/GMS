@@ -99,43 +99,8 @@ controllers.controller("placeList", ['$scope','$http','$state',function($scope,$
 		}
 	});
 
-	//删除确认提示
-	$scope.deleteType = "";
-	$scope.deleteId = ""
-	$scope.deleteTips = function(type,id) {
-		$scope.deleteType = type;
-		if(id){
-			$scope.deleteId = id;
-		}
-		$("#deleteTips").modal("show");
-	}
-
-	//场地删除
-	$scope.deletePlace= function() {
-		var placeList = [];
-		if($scope.deleteType == "one") {
-			var placeVo = new PlaceVo();
-			placeVo.id = $scope.deleteId;
-			placeList.push(placeVo);
-		} else if ($scope.deleteType == "batch") {
-			for(var i=0;i<$scope.placeList.list.length;i++) {
-				if($scope.placeList.list[i].checked) {
-					var placeVo = new PlaceVo();
-					placeVo.id = $scope.placeList.list[i].id;
-					placeList.push(placeVo);	
-				}
-			}
-		}
-		var url = baseUrl + "placeManage/deletePlace";
-		var data = {placeList:JSON.stringify(placeList)};
-		$http.post(url,data)
-		.success(function(data) {
-			toastr.success('删除场地', '成功');
-			$scope.getPlaceList();
-		});
-	}
 	
-	//跳转修改页
+	//跳转预定页
 	$scope.toLeasePage = function(id) {
 		$state.go("leasePlace",{id:id});
 	}

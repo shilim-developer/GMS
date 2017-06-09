@@ -6,6 +6,8 @@
 		<result column="place_id" jdbcType="INTEGER" property="placeId" />
 		<result column="time_id" jdbcType="INTEGER" property="timeId" />
 		<result column="place_status" jdbcType="VARCHAR" property="placeStatus" />
+		<association column="time_id" jdbcType="INTEGER"
+			property="time" select="com.lp.gms.dao.TimeOptionDao.selectByPrimaryKey" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, place_id, time_id, place_status
@@ -42,6 +44,14 @@
 			and
 			time_id = #{item.timeId,jdbcType=INTEGER}
 		</foreach>
+	</update>
+	
+	<!-- 通过租借记录修改场地状态 -->
+	<update id="updateByPlaceLeaseRecord" parameterType="com.lp.gms.model.PlaceLeaseRecord">
+			update place_status set place_status = #{checkStatus}
+			where time_id in 
+			(select id from time_option where start_time between
+			#{startTime} and #{endTime})
 	</update>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

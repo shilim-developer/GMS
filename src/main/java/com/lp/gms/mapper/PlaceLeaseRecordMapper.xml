@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.PlaceLeaseRecordDao">
+	<resultMap id="BaseResultMap" type="com.lp.gms.model.PlaceLeaseRecord">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="place_id" jdbcType="INTEGER" property="placeId" />
+		<result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+		<result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="cost" jdbcType="INTEGER" property="cost" />
+		<result column="result" jdbcType="VARCHAR" property="result" />
+		<result column="pay_status" jdbcType="BIT" property="payStatus" />
+		<result column="check_status" jdbcType="VARCHAR" property="checkStatus" />
+		<association property="place"
+			resultMap="com.lp.gms.dao.PlaceDao.BaseResultMap" />
+		<association property="user"
+			resultMap="com.lp.gms.dao.UserDao.BaseResultMap" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, place_id, start_time, end_time, user_id, cost, result, pay_status,
+		check_status
+	</sql>
+
+	<!-- 添加租借记录 -->
+	<insert id="insert" parameterType="com.lp.gms.model.PlaceLeaseRecord">
+		insert into place_lease_record (place_id, start_time,
+		end_time, user_id, cost
+		)
+		values (#{placeId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER},
+		#{cost,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<!-- 查询总记录数 -->
+	<select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+		select count(0) from place_lease_record left join place p on place_id
+		= p.id
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					place_name like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					place_name = #{keyWords}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询列表 -->
+	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
+		resultMap="BaseResultMap">
+		select
+		plr.id, plr.place_id, plr.start_time, plr.end_time, plr.user_id,
+		plr.cost, plr.result, plr.pay_status, plr.check_status,
+		p.place_name,
+		u.account,u.name
+		from place_lease_record plr
+		left join place p on plr.place_id
+		= p.id
+		left join gym_user u on plr.user_id = u.id
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					p.place_name like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					p.place_name = #{keyWords}
+				</if>
+			</if>
+		</where>
+		<if test="pageNum > 0 and pageSize > 0">
+			limit #{startColum},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 场地审核 -->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.PlaceLeaseRecord">
+		update place_lease_record
+		set
+		result = #{result,jdbcType=VARCHAR},
+		check_status = #{checkStatus,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from place_lease_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from place_lease_record
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.lp.gms.model.PlaceLeaseRecord">
+		insert into place_lease_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="placeId != null">
+				place_id,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="cost != null">
+				cost,
+			</if>
+			<if test="result != null">
+				result,
+			</if>
+			<if test="payStatus != null">
+				pay_status,
+			</if>
+			<if test="check != null">
+				check,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="placeId != null">
+				#{placeId,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=DATE},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=DATE},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="cost != null">
+				#{cost,jdbcType=INTEGER},
+			</if>
+			<if test="result != null">
+				#{result,jdbcType=VARCHAR},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus,jdbcType=BIT},
+			</if>
+			<if test="check != null">
+				#{check,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.PlaceLeaseRecord">
+		update place_lease_record
+		<set>
+			<if test="placeId != null">
+				place_id = #{placeId,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=DATE},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=DATE},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="cost != null">
+				cost = #{cost,jdbcType=INTEGER},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus,jdbcType=BIT},
+			</if>
+			<if test="check != null">
+				check = #{check,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
