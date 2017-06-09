@@ -14,8 +14,16 @@
 			<interceptor name="resultmessageInterceptor"
 				class="com.lp.gms.intercepter.ResultMessageInterceptor">
 			</interceptor>
+<!--    			<interceptor name="loginInterceptor"
+			    class="com.lp.gms.intercepter.LoginInterceptor">
+			</interceptor>
+            <interceptor name="roleInterceptor"
+			    class="com.lp.gms.intercepter.RoleInterceptor">
+			</interceptor>    -->
 			<interceptor-stack name="mydefault">
 				<!-- 进入拦截 -->
+<!--    				<interceptor-ref name="loginInterceptor" />
+ 				<interceptor-ref name="roleInterceptor" />   -->
 				<interceptor-ref name="defaultStack" />
 				<!-- 返回拦截 -->
 				<interceptor-ref name="resultmessageInterceptor" />
@@ -35,5 +43,20 @@
 		<!-- 设置访问点方法 -->
 		<global-allowed-methods>regex:.*</global-allowed-methods>
 		<action name="*" class="placeAction" method="{1}"></action>
+	</package>
+	<package name="user" namespace="/userManage" extends="default">
+		<!-- 设置访问点方法(后台服务端) -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="userAction" method="{1}"></action>
+	</package>
+	<package name="user" namespace="/userFront" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="userAction" method="{1}"></action>
+	</package>
+	<package name="role" namespace="/roleManage" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="roleAction" method="{1}"></action>
 	</package>
 </struts>
