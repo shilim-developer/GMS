@@ -36,7 +36,12 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/editUser/:id",
 	    templateUrl:"User/user-edit.html",
 		controller:"editUser"
-    });
+    })
+	.state("roleList",{
+		url:"/roleList",
+		templateUrl:"role/role-list.html",
+		controller:"roleList"
+	});
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){

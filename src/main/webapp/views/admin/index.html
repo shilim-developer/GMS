@@ -30,8 +30,8 @@
 								src="../../img/profile_small.jpg" />
 							</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear"> <span class="block m-t-xs"> <strong
-										class="font-bold">{{shilim}}</strong>
-								</span> <span class="text-muted text-xs block">超级管理员 <b
+										class="font-bold">{{user.name}}</strong>
+								</span> <span class="text-muted text-xs block" ng-bind="user.role.description"> <b
 										class="caret"></b></span>
 							</span>
 							</a>
@@ -39,13 +39,20 @@
 								<li><a href="#">个人信息</a></li>
 								<li><a href="#">管理记录</a></li>
 								<li class="divider"></li>
-								<li><a href="#">注销</a></li>
+								<li><a href="login.html">注销</a></li>
 							</ul>
 						</div>
 						<div class="logo-element">GMS</div>
 					</li>
 					<!--个人信息结束-->
-					<li class=""><a><i
+					<li ng-show="user.role.description == '超级管理员'" class=""><a><i
+							class="fa fa-delicious"></i> <span class="nav-label">用户管理</span><span
+							class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li><a ui-sref="userList">用户管理</a></li>
+							<li><a ui-sref="roleList">角色管理</a></li>
+						</ul></li>
+					<li ng-show="user.role.description == '场地管理员'" class=""><a><i
 							class="fa fa-delicious"></i> <span class="nav-label">场地管理</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
@@ -132,6 +139,10 @@
 		charset="utf-8"></script>
 	<script src="../../js/models/PlaceVo.js" type="text/javascript"
 		charset="utf-8"></script>
+	<script src="../../js/models/UserVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/RoleVo.js" type="text/javascript"
+		charset="utf-8"></script>
 
 	<!--contorllers-->
 	<script src="../../js/controller/admin/index.js" type="text/javascript"
@@ -144,7 +155,15 @@
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/admin/place/editPlace.js"
 		type="text/javascript" charset="utf-8"></script>
-
+	<script src="../../js/controller/admin/user/userList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/user/editUser.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/user/addUser.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/role/roleList.js"
+		type="text/javascript" charset="utf-8"></script>
+		
 	<!-- directives -->
 	<script src="../../js/directives/directives.js" type="text/javascript"
 		charset="utf-8"></script>
