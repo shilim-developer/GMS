@@ -1,9 +1,9 @@
-controllers.controller("editGame", ['$scope','$http','$state','$stateParams','$timeout',
+controllers.controller("checkGame", ['$scope','$http','$state','$stateParams','$timeout',
 	function($scope,$http,$state,$stateParams,$timeout) {
 	$scope.game = new GameVo();
 	
-	//获取赛事信息
-	$scope.getGame = function() {
+	//获取赛事状态
+	$scope.checkGame = function() {
 		var gameVo = new GameVo();
 		gameVo.id = $stateParams.id;
 		var url = baseUrl + "gameManage/selectOneGame";
@@ -21,7 +21,7 @@ controllers.controller("editGame", ['$scope','$http','$state','$stateParams','$t
 			$scope.game.status = rGame.status;
 		});
 	}
-	$scope.getGame();
+	$scope.checkGame();
 	
 	//返回
 	$scope.goBackTips = function() {
@@ -37,12 +37,12 @@ controllers.controller("editGame", ['$scope','$http','$state','$stateParams','$t
 	$scope.valid = false;
 	$scope.submit = function() {
 		$scope.valid = true;
-		if($scope.gameForm.$invalid) return;
+		if($scope.checkGameForm.$invalid) return;
 		var url = baseUrl + "gameManage/updateGame";
 		var data = {game:$scope.game.voToJson()};
 		$http.post(url,data)
 		.success(function(data) {
-			toastr.success('修改赛事', '成功');
+			toastr.success('审核赛事', '成功');
 			$scope.goBack();
 		});
 	}

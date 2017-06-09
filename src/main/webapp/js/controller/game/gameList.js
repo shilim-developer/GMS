@@ -110,5 +110,9 @@ controllers.controller("gameList", ['$scope','$http','$state',function($scope,$h
 	$scope.toEditPage = function(id) {
 		$state.go("editGame",{id:id});
 	}
+	//跳转审核页
+	$scope.toCheckGame = function(id) {
+		$state.go("checkGame",{id:id});
+	}
 
 }]);

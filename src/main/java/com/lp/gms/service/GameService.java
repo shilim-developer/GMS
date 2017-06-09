@@ -45,7 +45,9 @@ public class GameService {
 	
 	public ResultMessage selectOneGame(Game game) throws Exception {
 		Game rGame = gameDao.selectByPrimaryKey(game.getId());
+		System.out.println(rGame.getGamename());
 		return new ResultMessage(true,ResultCode.SUCCESS,"查询赛事成功",rGame);
+		
 	}
 	
 }

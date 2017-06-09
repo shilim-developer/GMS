@@ -27,6 +27,11 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		templateUrl:"views/game/game-list.html",
 		controller:"gameList"
 	})
+	.state("checkGame",{
+		url:"/checkGame/:id",
+		templateUrl:"views/game/game-check.html",
+		controller:"checkGame"
+	})
 	.state("addGame",{
 		url:"/addGame",
 		templateUrl:"views/game/game-add.html",

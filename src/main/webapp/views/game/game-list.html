@@ -38,7 +38,7 @@
 						</label>
 						<div class="input-group pull-left" style="margin-left: 10px;">
 							<a data-toggle="modal" class="btn btn-sm  btn-primary"
-								ui-sref="addGame"> <i class="fa fa-plus"></i> 新增赛事
+								ui-sref="addGame"> <i class="fa fa-plus"></i> 添加赛事
 							</a>
 						</div>
 						<div class="input-group col-lg-4 pull-right">
@@ -63,6 +63,7 @@
 									<th>赛事器材</th>
 									<th>赛事时间</th>
 									<th>赛事介绍</th>
+									<th>赛事状态</th>
 									<th class="col-lg-1 text-center">操作</th>
 								</tr>
 							</thead>
@@ -78,6 +79,8 @@
 									<td ng-bind="item.equip"></td>
 									<td ng-bind="item.gametime"></td>
 									<td ng-bind="item.gamedec"></td>
+									<td class="text-center"><a title="审核"
+										ng-click="toCheckGame(item.id)">{{item.status | statusFormat}}</a></td>
 									<td class="text-center"><a title="修改"
 										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
 										<a title="删除" ng-click="deleteTips('one',item.id)"><i
