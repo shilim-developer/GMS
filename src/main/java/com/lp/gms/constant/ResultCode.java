@@ -12,4 +12,6 @@ public interface ResultCode {
 	Integer FAIL = 2;
 	//参数错误
 	Integer ILLEGAL_ARGUMENT = 3;
+	//没有耽搁了
+	Integer NO_LOGIN = 4;
 }
