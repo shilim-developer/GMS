@@ -42,6 +42,11 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 	    templateUrl:"role/role-list.html",
 		controller:"roleList"
     })
+    .state("addRole",{
+		url:"/addRole",
+	    templateUrl:"role/role-add.html",
+		controller:"addRole"
+    })
 	.state("placeList",{
 		url:"/placeList",
 		templateUrl:"place/place-list.html",

@@ -36,6 +36,11 @@
 							class="form-control input-sm">
 						</select>
 						</label>
+						<div class="input-group pull-left" style="margin-left: 10px;">
+							<a data-toggle="modal" class="btn btn-sm  btn-primary"
+								ui-sref="addRole"> <i class="fa fa-plus"></i> 新增角色
+							</a>
+						</div>
 						<div class="input-group col-lg-4 pull-right">
 							<input type="text" class="form-control input-sm" name="search"
 								placeholder="输入角色名称查找" ng-model="page.keyWords"
@@ -63,8 +68,7 @@
 									<td
 										ng-bind="(roleList.pageNum-1)*roleList.pageSize+$index+1 || 0"></td>
 								    <td ng-bind="item.description"></td>
-									<td class="text-center"><a title="修改"
-										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+									<td class="text-center">
 										<a title="删除" ng-click="deleteTips('one',item.id)"><i
 											class="fa fa-trash"></i></a></td>
 								</tr>

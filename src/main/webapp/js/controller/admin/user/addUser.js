@@ -15,15 +15,25 @@ controllers.controller("addUser", ['$scope','$http','$state','$timeout',function
 	
 	$scope.valid = false;
 	$scope.submit = function() {
-		$scope.valid = true;
-		if($scope.userForm.$invalid) return;
-		var url = baseUrl + "userManage/addUser";
+		var rUrl = baseUrl + "userManage/isExistName"
 		var data = {user:$scope.user.voToJson()};
-		$http.post(url,data)
+		$http.post(rUrl,data)
 		.success(function(data) {
-			toastr.success('新增用户', '成功');
-			$scope.goBack();
-		});
+			console.log(data);
+			if(data.resultParam > 0){
+				$scope.existName = true;
+			}else{
+				$scope.valid = true;
+				if($scope.userForm.$invalid) return;
+				var url = baseUrl + "userManage/addUser";
+				var data = {user:$scope.user.voToJson()};
+				$http.post(url,data)
+				.success(function(data) {
+					toastr.success('新增用户', '成功');
+					$scope.goBack();
+				});
+			}
+		})
 	}
 	
 	$scope.getAllRole = function() {

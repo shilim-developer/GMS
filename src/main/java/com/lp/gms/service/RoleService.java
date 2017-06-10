@@ -27,6 +27,7 @@ public class RoleService {
 	}
 	
 	public ResultMessage insert(Role role) throws Exception {
+		System.out.println("sasasaasasasasasa"+role);
 		roleDao.insert(role);
 		return new ResultMessage(true,ResultCode.SUCCESS,"插入成功",null);
 	}
@@ -69,4 +70,8 @@ public class RoleService {
 		return new ResultMessage(true,ResultCode.SUCCESS,"查找成功",rList);
 	}
 
+	public ResultMessage deleteByList(List<Role> list) throws Exception {
+		roleDao.deleteByList(list);
+		return new ResultMessage(true,ResultCode.SUCCESS,"删除成功",null);
+	}
 }

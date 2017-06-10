@@ -47,6 +47,7 @@
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="account"
 									ng-class="{error:valid && userForm.account.$invalid}" ng-model="user.account" required>
+									<span style="color: red" class="tips" ng-if="existName">用户账号已存在</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
