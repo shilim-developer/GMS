@@ -1,15 +1,19 @@
 package com.lp.gms.service;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+=======
+>>>>>>> origin/jerry
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lp.gms.constant.ResultCode;
 import com.lp.gms.dao.UserDao;
+<<<<<<< HEAD
 import com.lp.gms.model.Page;
 import com.lp.gms.model.PageInfo;
 import com.lp.gms.model.Place;
@@ -18,6 +22,10 @@ import com.lp.gms.model.Role;
 import com.lp.gms.model.User;
 import com.lp.gms.model.UserRole;
 import com.lp.gms.utils.MD5Utils;
+=======
+import com.lp.gms.model.ResultMessage;
+import com.lp.gms.model.User;
+>>>>>>> origin/jerry
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -25,6 +33,7 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
+<<<<<<< HEAD
 	public ResultMessage addUser(User user) throws Exception {
 		String password = MD5Utils.md5(user.getPassword());
 		user.setPassword(password);
@@ -90,4 +99,16 @@ public class UserService {
 		PageInfo<User> pageInfo = new PageInfo<User>(page, total, users);
 		return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
 	}
+=======
+	public ResultMessage login(User user) throws Exception {
+		User rUser = userDao.selectByUser(user);
+		ResultMessage resultMessage = null;
+		if(rUser == null) {
+			resultMessage = new ResultMessage(false, ResultCode.NO_LOGIN, "用户名或者密码错误", null);
+		} else {
+			resultMessage = new ResultMessage(true, ResultCode.SUCCESS, "登录成功", rUser);
+		}
+		return resultMessage;
+	}
+>>>>>>> origin/jerry
 }

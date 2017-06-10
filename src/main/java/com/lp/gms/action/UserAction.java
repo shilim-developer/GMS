@@ -1,15 +1,21 @@
 package com.lp.gms.action;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> origin/jerry
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+<<<<<<< HEAD
 import com.google.gson.reflect.TypeToken;
 import com.lp.gms.model.Page;
 import com.lp.gms.model.Place;
+=======
+>>>>>>> origin/jerry
 import com.lp.gms.model.ResultMessage;
 import com.lp.gms.model.User;
 import com.lp.gms.service.UserService;
@@ -20,14 +26,18 @@ import com.opensymphony.xwork2.ActionSupport;
 @Controller
 @Scope(value = "prototype")
 public class UserAction extends ActionSupport {
+<<<<<<< HEAD
 	@Autowired
     UserService userService;
 	
+=======
+>>>>>>> origin/jerry
 	/**
 	 * 序列化版本UID
 	 */
 	private static final long serialVersionUID = 1L;
 	
+<<<<<<< HEAD
 	/**
 	 * 结果信息
 	 */
@@ -42,6 +52,18 @@ public class UserAction extends ActionSupport {
 	}
 	
 	/**
+=======
+	@Autowired
+	private UserService userService;
+	
+	/**
+	 * 结果信息
+	 */
+	@SuppressWarnings("unused")
+	private ResultMessage resultMessage;
+	
+	/**
+>>>>>>> origin/jerry
 	 * 用户信息
 	 */
 	private String user;
@@ -50,6 +72,7 @@ public class UserAction extends ActionSupport {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * 用户列表
 	 */
 	private String userList;
@@ -90,4 +113,16 @@ public class UserAction extends ActionSupport {
 		resultMessage = userService.updateUser(JsonUtil.jsonToObject(user,User.class));
 	}
 	
+=======
+	 * 登录
+	 * @throws Exception
+	 */
+	public void login() throws Exception {
+		resultMessage = userService.login(JsonUtil.jsonToObject(user, User.class));
+		if(resultMessage.getResultParam() != null) {
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			session.put("user", resultMessage.getResultParam());
+		}
+	}
+>>>>>>> origin/jerry
 }

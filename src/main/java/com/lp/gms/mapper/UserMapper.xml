@@ -8,6 +8,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="cardNo" jdbcType="VARCHAR" property="cardno" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+<<<<<<< HEAD
     <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="status" jdbcType="TINYINT" property="status" />
@@ -21,6 +22,20 @@
     <include refid="Base_Column_List" />
     from gym_user
     where id = #{id,jdbcType=BIGINT}
+=======
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account, password, name, cardNo, email
+  </sql>
+  
+  <select id="selectByUser" parameterType="com.lp.gms.model.User" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gym_user
+    where account = #{account,jdbcType=VARCHAR}
+    and password = #{password,jdbcType=VARCHAR}
+    limit 1
+>>>>>>> origin/jerry
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from gym_user
@@ -28,6 +43,7 @@
   </delete>
   <insert id="insert" parameterType="com.lp.gms.model.User">
     insert into gym_user (id, account, password, 
+<<<<<<< HEAD
       name, cardNo, email, 
       mobilephone, address, status, 
       role_id)
@@ -35,6 +51,13 @@
       #{name,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{mobilephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{role.id,jdbcType=BIGINT})
+=======
+      name, cardNo, email
+      )
+    values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
+      )
+>>>>>>> origin/jerry
   </insert>
   <insert id="insertSelective" parameterType="com.lp.gms.model.User">
     insert into gym_user
@@ -57,6 +80,7 @@
       <if test="email != null">
         email,
       </if>
+<<<<<<< HEAD
       <if test="mobilephone != null">
         mobilephone,
       </if>
@@ -69,6 +93,8 @@
       <if test="roleId != null">
         role_id,
       </if>
+=======
+>>>>>>> origin/jerry
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -89,6 +115,7 @@
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
+<<<<<<< HEAD
       <if test="mobilephone != null">
         #{mobilephone,jdbcType=VARCHAR},
       </if>
@@ -101,6 +128,8 @@
       <if test="roleId != null">
         #{roleId,jdbcType=BIGINT},
       </if>
+=======
+>>>>>>> origin/jerry
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.User">
@@ -121,6 +150,7 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
+<<<<<<< HEAD
       <if test="mobilephone != null">
         mobilephone = #{mobilephone,jdbcType=VARCHAR},
       </if>
@@ -133,6 +163,8 @@
       <if test="roleId != null">
         role_id = #{role.id,jdbcType=BIGINT},
       </if>
+=======
+>>>>>>> origin/jerry
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -142,6 +174,7 @@
       password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       cardNo = #{cardno,jdbcType=VARCHAR},
+<<<<<<< HEAD
       email = #{email,jdbcType=VARCHAR},
       mobilephone = #{mobilephone,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
@@ -223,4 +256,9 @@
       #{gym_user.id}
     </foreach>
   </delete>
+=======
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+>>>>>>> origin/jerry
 </mapper>

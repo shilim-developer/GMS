@@ -28,6 +28,7 @@ controllers.controller("addPlace", ['$scope','$http','$state','$timeout',functio
 				$scope.placeTypeList = data.resultParam.list;
 				$scope.place.placeType.id = $scope.placeTypeList?$scope.placeTypeList[0].id:'';
 			} else {
+				console.log(place.placeType.id);
 				toastr.error('获取数据', '失败');
 			}
 		})

@@ -13,6 +13,7 @@ public class User {
 
     private String email;
 
+<<<<<<< HEAD
     private String mobilephone;
 
 	private String address;
@@ -29,6 +30,8 @@ public class User {
 
 	private Role role;
 
+=======
+>>>>>>> origin/jerry
     public Long getId() {
         return id;
     }
@@ -76,6 +79,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+<<<<<<< HEAD
 
     public String getMobilephone() {
         return mobilephone;
@@ -102,4 +106,6 @@ public class User {
     }
 
 
+=======
+>>>>>>> origin/jerry
 }

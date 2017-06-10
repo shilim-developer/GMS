@@ -9,8 +9,11 @@ if(typeof UserVo == 'undefined') {
 		this.mobilephone;
 		this.address;
 		this.status;
+<<<<<<< HEAD
 		this.role;
 		this.statusDescription;
+=======
+>>>>>>> origin/jerry
 	}
 }
 

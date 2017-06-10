@@ -1,5 +1,6 @@
 package com.lp.gms.dao;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import com.lp.gms.model.Page;
@@ -7,17 +8,33 @@ import com.lp.gms.model.Role;
 import com.lp.gms.model.User;
 
 public interface UserDao {
+=======
+import com.lp.gms.model.User;
+
+public interface UserDao {
+	/**
+	 * 查询用户是否存在
+	 * @param user
+	 * @return
+	 */
+	User selectByUser(User user);
+	
+>>>>>>> origin/jerry
     int deleteByPrimaryKey(Long id);
 
     int insert(User record);
 
     int insertSelective(User record);
 
+<<<<<<< HEAD
     User selectByPrimaryKey(Long id);
+=======
+>>>>>>> origin/jerry
 
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+<<<<<<< HEAD
     
     /**
      * 根据用户名获取用户
@@ -79,4 +96,6 @@ public interface UserDao {
     int selectCounts();
     
     boolean selectByLoginName(String loginName);
+=======
+>>>>>>> origin/jerry
 }
