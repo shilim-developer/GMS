@@ -2,23 +2,23 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<classPathEntry
-		location="E:\wteam\apache-maven-3.3.9\repo\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar" />
+		location="D:\MySQL\mysql-connector-java-5.1.40\mysql-connector-java-5.1.40-bin.jar" />
 	<context id="context1">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 			<property name="suppressDate" value="true" />
 		</commentGenerator>
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/gms"
-			driverClass="com.mysql.jdbc.Driver" password="shilim" userId="root" />
+			driverClass="com.mysql.jdbc.Driver" password="951025" userId="root" />
 		<javaModelGenerator targetPackage="com.lp.gms.model"
 			targetProject="GMS\src\main\java" />
 		<sqlMapGenerator targetPackage="com.lp.gms.mapper"
 			targetProject="GMS\src\main\java" />
 		<javaClientGenerator targetPackage="com.lp.gms.dao"
 			targetProject="GMS\src\main\java" type="XMLMAPPER" />
-		<table tableName="place" domainObjectName="Place" mapperName="PlaceDao"
-			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false" />
+			<table tableName="gym_user" domainObjectName="User"
+	mapperName="UserDao" enableCountByExample="false"
+	enableUpdateByExample="false" enableDeleteByExample="false"
+	enableSelectByExample="false" selectByExampleQueryId="false" />
 	</context>
 </generatorConfiguration>

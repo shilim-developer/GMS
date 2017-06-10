@@ -63,6 +63,49 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		controller:"placeLeaseRecordList"
 	})
   ;
+	})
+	
+	.state("equipmentList",{
+		url:"/equipmentList",
+		templateUrl:"equipment/equipment-list.html",
+		controller:"equipmentList"
+	})
+	
+	.state("addEquipment",{
+		url:"/addEquipment",
+		templateUrl:"equipment/equipment-add.html",
+		controller:"addEquipment"
+	})
+	
+	.state("editEquipment",{
+		url:"/editEquipment/:equipmentid",
+		templateUrl:"equipment/equipment-edit.html",
+		controller:"editEquipment"
+	})
+	
+	.state("equipmentTypeList",{
+		url:"/equipmentTypeList",
+		templateUrl:"equipmentType/equipmentType-list.html",
+		controller:"equipmentTypeList"
+	})
+	
+	.state("addEquipmentType",{
+		url:"/addEquipmentType",
+		templateUrl:"equipmentType/equipmentType-add.html",
+		controller:"addEquipmentType"
+	})
+	
+	.state("editEquipmentType",{
+		url:"/editEquipmentType/:typeid",
+		templateUrl:"equipmentType/equipmentType-edit.html",
+		controller:"editEquipmentType"
+	})
+	
+	.state("equipmentloanList",{
+		url:"/equipmentloanList",
+		templateUrl:"equipmentloan/equipmentloan-list.html",
+		controller:"equipmentloanList"
+	})
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){
