@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+
+<body>
+	<!--面包屑导航开始-->
+	<div class="row  border-bottom white-bg dashboard-header">
+		<div class="col-lg-10">
+			<h2>器材租借</h2>
+			<ol class="breadcrumb">
+				<li><a href="#">主页</a></li>
+				<li><a>器材租借</a></li>
+				<li class="active"><strong>器材预定</strong></li>
+			</ol>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
+	<!--面包屑导航结束-->
+
+	<!--列表开始-->
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>租借器材申请表</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="input-group pull-left">
+							<a class="btn btn-sm  btn-white" ng-click="goBackTips()"> <i
+								class="fa fa-mail-reply"></i> 返回
+							</a>
+						</div>
+						<div class="input-group pull-left" style="margin-left: 10px;">
+							<a class="btn btn-sm  btn-primary" ng-click="submit()">确定 </a>
+						</div>
+						<div class="clearfix"></div>
+						<div class="hr-line-dashed"></div>
+						<!-- 表单开始 -->
+						<form class="form-horizontal" name="equipmentForm" novalidate>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">器材名称</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" name="equipmentname"
+										ng-class="{error:valid && equipmentForm.equipmentname.$invalid}"
+										ng-model="equipment.equipmentname" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									ng-model="equipment.equipmentType">器材类型</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" name="typename"
+										ng-model="equipment.equipmentType.typename" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									ng-model="equipment.estandard">器材规格</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" name="estandard"
+										ng-class="{error:valid && equipmentForm.estandard.$invalid}"
+										ng-model="equipment.estandard" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									ng-model="equipment.eprice">器材租借价格</label>
+								<div class="col-sm-6">
+									<input type="number" class="form-control" name="cost"
+										ng-class="{error:valid && equipmentForm.eprice.$invalid}"
+										ng-model="equipment.eprice" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">器材可租借数量</label>
+								<div class="col-sm-6">
+									<input type="number" class="form-control" name="rentnum"
+										ng-class="{error:valid && equipmentForm.loanablenum.$invalid}"
+										ng-model="equipment.loanablenum" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									ng-model="equipment.equipmentloan.rentnum">租借数量</label>
+								<div class="col-sm-6">
+									<input type="number" class="form-control" name="rentnum"
+									    ng-change="count()"
+										ng-class="{error:valid && equipmentForm.equipmentloan.rentnum.$invalid}"
+										ng-model="equipmentloan.rentnum" required>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">租借起始时间</label>
+								<div class="col-sm-6"> 
+								<input type="text" class="form-control" name="startdate"
+										value="{{equipmentloan.startdate | date:'yyyy-MM-dd'}}" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">租借结束时间</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" name="enddate"
+									   
+										value="{{equipmentloan.enddate | date:'yyyy-MM-dd'}}" required disabled>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" ng-model="rentday">租借天数</label>
+								<div class="col-sm-6">
+									<select class="form-control"  ng-change="addDate()"
+										ng-model="rentday" ng-init="rentday = days[0]"
+										ng-options="item for item in days">
+									</select>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label"
+									ng-model="equipment.equipmentloan.epayment">器材总费用</label>
+								<div class="col-sm-6">
+									<input type="number" class="form-control" name="epayment"
+										ng-class="{error:valid && equipmentForm.equipmentloan.epayment.$invalid}"
+										ng-model="equipmentloan.epayment" required disabled>
+								</div>
+							</div>
+						</form>
+						<!-- 表单结束 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--列表结束-->
+
+	<div id="goBackTips" class="modal fade" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<h3 class="m-t-none m-b">提示</h3>
+						<h4>确定放弃预定器材吗？</h4>
+						<div class="pull-right">
+							<button class="btn btn-sm btn-default" data-dismiss="modal">
+								<strong>取消</strong>
+							</button>
+							<button class="btn btn-sm btn-primary" ng-click="goBack()">
+								<strong>确定</strong>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
