@@ -99,5 +99,14 @@
 		from place
 		where id = #{id,jdbcType=INTEGER}
 	</select>
+	
+	<!-- 通过类型id查询场地 -->
+	<select id="selectByPlaceTypeId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" /> 
+		from place
+		where place_type = #{typeId,jdbcType=INTEGER} limit 1
+	</select>
 
 </mapper>

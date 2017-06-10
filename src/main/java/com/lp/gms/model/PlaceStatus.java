@@ -8,6 +8,8 @@ public class PlaceStatus {
     private Integer timeId;
 
     private String placeStatus;
+    
+    private TimeOption time;
 
     public Long getId() {
         return id;
@@ -40,4 +42,12 @@ public class PlaceStatus {
     public void setPlaceStatus(String placeStatus) {
         this.placeStatus = placeStatus;
     }
+
+	public TimeOption getTime() {
+		return time;
+	}
+
+	public void setTime(TimeOption time) {
+		this.time = time;
+	}
 }

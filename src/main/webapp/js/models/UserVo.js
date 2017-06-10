@@ -9,6 +9,8 @@ if(typeof UserVo == 'undefined') {
 		this.mobilephone;
 		this.address;
 		this.status;
+		this.role;
+		this.statusDescription;
 	}
 }
 

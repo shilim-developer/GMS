@@ -1,4 +1,4 @@
-controllers.controller("placeTypeList", ['$scope','$http','$state',function($scope,$http,$state) {
+controllers.controller("placeTypeList", ['$scope','$http','$state','loginCheckService',function($scope,$http,$state,loginCheckService) {
 	$scope.checkAll = false;//全选
 	$scope.placeTypeList = [];
 	$scope.page = new PageVo();
@@ -18,6 +18,7 @@ controllers.controller("placeTypeList", ['$scope','$http','$state',function($sco
 				$scope.placeTypeList = data.resultParam;
 				$scope.page.pageNum = $scope.placeTypeList.pageNum;
 			} else {
+				loginCheckService.loginCheck(data.serviceResult);
 				toastr.error('获取数据', '失败');
 			}
 		})
@@ -108,8 +109,16 @@ controllers.controller("placeTypeList", ['$scope','$http','$state',function($sco
 		var data = {placeTypeList:JSON.stringify(placeTypeList)};
 		$http.post(url,data)
 		.success(function(data) {
-			toastr.success('删除场地类型', '成功');
-			$scope.getPlaceTypeList();
+			if(data.serviceResult == 1) {
+				toastr.success('删除场地类型', '成功');
+				$scope.getPlaceTypeList();
+			} else {
+				loginCheckService.loginCheck(data.serviceResult);
+				toastr.error(data.resultInfo, '失败');
+			}
+		})
+		.error(function() {
+			toastr.error("网络繁忙", '失败');
 		});
 	}
 	

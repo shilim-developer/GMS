@@ -13,6 +13,22 @@ public class User {
 
     private String email;
 
+    private String mobilephone;
+
+	private String address;
+
+    private Byte status;
+    
+    public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	private Role role;
+
     public Long getId() {
         return id;
     }
@@ -60,4 +76,30 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getMobilephone() {
+        return mobilephone;
+    }
+
+    public void setMobilephone(String mobilephone) {
+        this.mobilephone = mobilephone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+
 }

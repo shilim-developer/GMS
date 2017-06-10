@@ -10,5 +10,11 @@ public interface TimeOptionDao {
 	 * @return
 	 */
     List<TimeOption> selectAll();
-
+    
+    /**
+     * 通过id查询日期
+     * @param id
+     * @return
+     */
+    TimeOption selectByPrimaryKey(Integer id);
 }

@@ -22,8 +22,10 @@ loginApp.controller("login", ['$scope','$http','$window',function($scope,$http,$
 		var data = {user:$scope.user.voToJson()};
 		$http.post(url,data)
 		.success(function(data) {
+			console.log(data);
 			if(data.serviceResult == 1) {
-				sessionStorage.userName = data.resultParam.account;
+				console.log(data.userToken);
+				//跳转到首页
 				$window.location.href = "index.html";
 			} else {
 				console.log(data.userToken);

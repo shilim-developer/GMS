@@ -36,19 +36,21 @@ public class LoginInterceptor extends AbstractInterceptor {
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-//		String namespace = invocation.getProxy().getNamespace();  
-//        String methodName = invocation.getProxy().getMethod();
-//        if(namespace.contains("Front") && methodName.equals("login")) {
-//        	invocation.invoke();
-//        } else if (namespace.contains("Manage")) {
-//        	Map<String, Object> session = ActionContext.getContext().getSession();
-//        	if(session.get("user") == null) {
-//        		noLoginReturn(new ResultMessage(false, ResultCode.NO_LOGIN, "没有登录", null));
-//        	} else {
-//        		invocation.invoke();
-//        	}
-//        }
-        invocation.invoke();
+		String namespace = invocation.getProxy().getNamespace();  
+        String methodName = invocation.getProxy().getMethod();
+        if(namespace.contains("Front") && methodName.equals("login") ) {
+        	invocation.invoke();
+        } else if(namespace.contains("Manage") && methodName.equals("login") ){
+        	invocation.invoke();
+        }
+        else if (namespace.contains("Manage") || namespace.contains("Front")) {
+        	Map<String, Object> session = ActionContext.getContext().getSession();
+        	if(session.get("user") == null) {
+        		noLoginReturn(new ResultMessage(false, ResultCode.NO_LOGIN, "没有登录", null));
+        	} else {
+        		invocation.invoke();
+        	}
+        }
 		return null;
 	}
 	

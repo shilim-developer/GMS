@@ -8,18 +8,19 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="cardNo" jdbcType="VARCHAR" property="cardno" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobilephone" jdbcType="VARCHAR" property="mobilephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <association column="role_id" jdbcType="BIGINT" property="role" select = "com.lp.gms.dao.RoleDao.selectByPrimaryKey"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, account, password, name, cardNo, email
+    id, account, password, name, cardNo, email, mobilephone, address, status, role_id
   </sql>
-  
-  <select id="selectByUser" parameterType="com.lp.gms.model.User" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gym_user
-    where account = #{account,jdbcType=VARCHAR}
-    and password = #{password,jdbcType=VARCHAR}
-    limit 1
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from gym_user
@@ -27,11 +28,13 @@
   </delete>
   <insert id="insert" parameterType="com.lp.gms.model.User">
     insert into gym_user (id, account, password, 
-      name, cardNo, email
-      )
+      name, cardNo, email, 
+      mobilephone, address, status, 
+      role_id)
     values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
-      )
+      #{name,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{mobilephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{role.id,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.lp.gms.model.User">
     insert into gym_user
@@ -54,6 +57,18 @@
       <if test="email != null">
         email,
       </if>
+      <if test="mobilephone != null">
+        mobilephone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -73,6 +88,18 @@
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -94,6 +121,18 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
+      <if test="mobilephone != null">
+        mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="roleId != null">
+        role_id = #{role.id,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -103,7 +142,85 @@
       password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       cardNo = #{cardno,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
+      email = #{email,jdbcType=VARCHAR},
+      mobilephone = #{mobilephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      role_id = #{role.id,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <select id="selectCounts" resultType="integer">
+    SELECT count(*)
+    FROM gyn_user
+  </select>
+  <select id="selectCount" parameterType="com.lp.gms.model.Page"
+    resultType="java.lang.Long">
+      select count(0) from gym_user
+    <where>
+      <if test="keyWords != null and keyWords != ''">
+        <if test="fuzzy == true">
+          account like '%' #{keyWords} '%'
+        </if>
+        <if test="fuzzy == false">
+          account = #{keyWords}
+        </if>
+      </if>
+    </where>
+  </select>
+  <select id="selectByLoginName" resultType="boolean">
+    SELECT exists(
+           SELECT *
+           FROM gym_user
+           WHERE name = #{name}
+    )
+  </select>
+  <select id="findOneByUsername" resultType="com.lp.gms.model.User">
+      SELECT *
+      FROM gym_user
+      WHERE name = #{name}
+  </select>
+  <select id="accountValid" parameterType="com.lp.gms.model.User" resultMap="BaseResultMap"> 
+    select
+    <include refid="Base_Column_List" />
+    from gym_user where account=#{account} and password=#{password}
+  </select>
+  <select id="userNameExits" resultType="int">
+    select count(0) from gym_user where account=#{account}
+  </select>
+  <select id="findRole"  resultType="com.lp.gms.model.Role">
+    select  ur.id,ur.description,ifnull(uu.id,0)marker,uu.id userId from gym_role ur
+        left join gym_user_role uur on uur.rid = ur.id
+        left join (select id from gym_user where id=#{id,jdbcType=BIGINT}) uu on uu.id = uur.uid
+        group by ur.id
+  </select>
+  
+  <!-- 分页查询用户列表 -->
+  <select id="selectByPage" parameterType="com.lp.gms.model.Page" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gym_user
+    <where>
+      <if test="keyWords != null and keyWords != ''">
+        <if test="fuzzy == true">
+          account like '%' #{keyWords} '%'
+        </if>
+        <if test="fuzzy == false">
+          account = #{keyWords}
+        </if>
+      </if>
+    </where>
+    <if test="pageNum > 0 and pageSize > 0">
+      limit #{startColum},#{pageSize}
+    </if>
+  </select>
+  
+    <!-- 删除用户 -->
+  <delete id="deleteByList" parameterType="java.util.List">
+    delete from gym_user
+    where id in
+    <foreach item="gym_user" collection="list" open="(" separator=","
+      close=")">
+      #{gym_user.id}
+    </foreach>
+  </delete>
 </mapper>

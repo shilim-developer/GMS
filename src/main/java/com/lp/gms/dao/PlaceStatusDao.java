@@ -3,6 +3,7 @@ package com.lp.gms.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.lp.gms.model.PlaceLeaseRecord;
 import com.lp.gms.model.PlaceStatus;
 
 public interface PlaceStatusDao {
@@ -26,6 +27,13 @@ public interface PlaceStatusDao {
 	 * @return
 	 */
 	int updateByPlaceStatus(List<PlaceStatus> placeStatusList);
+	
+	/**
+	 * 通过租借记录修改场地状态
+	 * @param placeLeaseRecord
+	 * @return
+	 */
+	int updateByPlaceLeaseRecord(PlaceLeaseRecord placeLeaseRecord);
 	
     int deleteByPrimaryKey(Long id);
 
