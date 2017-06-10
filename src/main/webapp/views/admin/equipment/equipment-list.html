@@ -73,14 +73,14 @@
 									<td
 										ng-bind="(equipmentList.pageNum-1)*equipmentList.pageSize+$index+1 || 0"></td>
 									<td ng-bind="item.equipmentname"></td>
-									<td ng-bind="item.typeid"></td>
+									<td ng-bind="item.equipmentType.typename"></td>
 									<td ng-bind="item.estandard"></td>
 									<td ng-bind="item.eprice"></td>
 									<td ng-bind="item.totalnum"></td>
 									<td ng-bind="item.loanablenum"></td>
 									<td class="text-center"><a title="修改"
-										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-										<a title="删除" ng-click="deleteTips('one',item.id)"><i
+										ng-click="toEditPage(item.equipmentid)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a title="删除" ng-click="deleteTips('one',item.equipmentid)"><i
 											class="fa fa-trash"></i></a></td>
 								</tr>
 								<tr ng-show="equipmentList.list.length==0">

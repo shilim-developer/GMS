@@ -3,25 +3,24 @@ package com.lp.gms.dao;
 import java.util.List;
 
 import com.lp.gms.model.Equipment;
-import com.lp.gms.model.EquipmentType;
 import com.lp.gms.model.Page;
 
 public interface EquipmentDao {
 	/**
-	 *  添加器材类型
+	 *  添加器材
 	 * @param equipment
 	 * @return
 	 */
 	    int insert(Equipment equipment);
 
 	    /**
-		 * 删除器材类型
+		 * 删除器材
 		 * @param equipments
 		 */
 		void deleteByList(List<Equipment> equipments);
 		
 		/**
-		 * 更新器器材类型
+		 * 更新器器材
 		 * @param equipment
 		 * @return
 		 */
@@ -35,7 +34,7 @@ public interface EquipmentDao {
 		long selectCount(Page page);
 		
 		/**
-		 * 分页查询器材类型列表
+		 * 分页查询器材列表
 		 * @param page
 		 * @return
 		 */

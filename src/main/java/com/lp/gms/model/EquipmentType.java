@@ -2,7 +2,6 @@ package com.lp.gms.model;
 
 public class EquipmentType {
     private Integer typeid;
-
     private String typename;
 
 

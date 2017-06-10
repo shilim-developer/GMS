@@ -12,7 +12,25 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/leasePlace/:id",
 		templateUrl:"place/place-lease.html",
 		controller:"leasePlace"
-	});
+	})
+	
+	.state("equipmentList",{
+		url:"/equipmentList",
+		templateUrl:"equipment/equipment-list.html",
+		controller:"equipmentList"
+	})
+	
+	.state("leaseEquipment",{
+		url:"/leaseEquipment/:equipmentid",
+		templateUrl:"equipment/equipment-lease.html",
+		controller:"leaseEquipment"
+	})
+	
+	.state("equipmentloanList",{
+		url:"/equipmentloanList",
+		templateUrl:"equipmentloan/equipmentloan-list.html",
+		controller:"equipmentloanList"
+	})
 }])
 .config(['$httpProvider',function($httpProvider) {
 	$httpProvider.defaults.transformRequest=function(obj){

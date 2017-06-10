@@ -79,11 +79,11 @@ controllers.controller("equipmentList", ['$scope','$http','$state',function($sco
 
 	//删除确认提示
 	$scope.deleteType = "";
-	$scope.deleteId = ""
-	$scope.deleteTips = function(type,id) {
+	$scope.deleteEquipmentid = ""
+	$scope.deleteTips = function(type,equipmentid) {
 		$scope.deleteType = type;
-		if(id){
-			$scope.deleteId = id;
+		if(equipmentid){
+			$scope.deleteEquipmentid = equipmentid;
 		}
 		$("#deleteTips").modal("show");
 	}
@@ -92,14 +92,14 @@ controllers.controller("equipmentList", ['$scope','$http','$state',function($sco
 	$scope.deleteEquipment= function() {
 		var equipmentList = [];
 		if($scope.deleteType == "one") {
-			var EquipmentVo = new EquipmentVo();
-			EquipmentVo.id = $scope.deleteId;
-			equipmentList.push(EquipmentVo);
+			var equipmentVo = new EquipmentVo();
+			equipmentVo.equipmentid = $scope.deleteEquipmentid;
+			equipmentList.push(equipmentVo);
 		} else if ($scope.deleteType == "batch") {
 			for(var i=0;i<$scope.equipmentList.list.length;i++) {
 				if($scope.equipmentList.list[i].checked) {
 					var equipmentVo = new EquipmentVo();
-					equipmentVo.id = $scope.equipmentList.list[i].id;
+					equipmentVo.equipmentid = $scope.equipmentList.list[i].equipmentid;
 					equipmentList.push(equipmentVo);	
 				}
 			}
@@ -107,15 +107,19 @@ controllers.controller("equipmentList", ['$scope','$http','$state',function($sco
 		var url = baseUrl + "equipmentManage/deleteEquipment";
 		var data = {equipmentList:JSON.stringify(equipmentList)};
 		$http.post(url,data)
-		.success(function(data) 
-			toastr.success('删除器材', '成功');
-			$scope.getEquipmentList();
+		.success(function(data) {
+			if(data.serviceResult == 1) {
+				toastr.success('删除器材', '成功');
+				$scope.getEquipmentList();
+			} else {
+				toastr.error('删除器材', '失败');
+			}
 		});
 	}
 	
 	//跳转修改页
-	$scope.toEditPage = function(id) {
-		$state.go("editEquipment",{id:id});
+	$scope.toEditPage = function(equipmentid) {
+		$state.go("editEquipment",{equipmentid:equipmentid});
 	}
 
 }]);

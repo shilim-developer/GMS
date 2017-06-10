@@ -18,33 +18,22 @@ import com.lp.gms.model.ResultMessage;
 public class EquipmentloanService {
 	@Autowired
 	private EquipmentloanDao equipmentloanDao;
-	
-	public ResultMessage addEquipmentloan(Equipmentloan equipmentloan) throws Exception {
+
+	public ResultMessage leaseEquipment(Equipmentloan equipmentloan) throws Exception {
 		equipmentloanDao.insert(equipmentloan);
-		return new ResultMessage(true,ResultCode.SUCCESS,"添加成功",null);
-	    }
-		
-		public ResultMessage deleteEquipmentloan(List<Equipmentloan> list) throws Exception {
-			equipmentloanDao.deleteByList(list);
-			return new ResultMessage(true,ResultCode.SUCCESS,"删除成功",null);
-		}
-		
-		public ResultMessage updateEquipmentloan(Equipmentloan equipmentloan) throws Exception {
-			equipmentloanDao.updateByPrimaryKey(equipmentloan);
-			return new ResultMessage(true,ResultCode.SUCCESS,"修改成功",null);
-		}
-		
-		public ResultMessage selectEquipmentloan(Page page) throws Exception {
-			page.coutStartColum();
-			long total = equipmentloanDao.selectCount(page);
-			List<Equipmentloan> equipmentloans = equipmentloanDao.selectByPage(page);
-			PageInfo<Equipmentloan> pageInfo = new PageInfo<Equipmentloan>(page, total, equipmentloans);
-			return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
-		}
-		
-		public ResultMessage selectEquipmentloan(Equipmentloan equipmentloan) throws Exception {
-			Equipmentloan et = equipmentloanDao.selectByPrimaryKey(equipmentloan.getEquipmentloanid());
-			return new ResultMessage(true,ResultCode.SUCCESS,"查询器材租借成功",et);
-		}
-		
+		return new ResultMessage(true,ResultCode.SUCCESS,"预定成功",null);
+	}
+	
+	public ResultMessage selectEquipmentloanList(Page page) throws Exception {
+		page.coutStartColum();
+		long total = equipmentloanDao.selectCount(page);
+		List<Equipmentloan> equipmentloans = equipmentloanDao.selectByPage(page);
+		PageInfo<Equipmentloan> pageInfo = new PageInfo<Equipmentloan>(page, total, equipmentloans);
+		return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
+	}
+	
+	public ResultMessage checkEquipmentloan(Equipmentloan equipmentloan) throws Exception {
+		equipmentloanDao.updateByPrimaryKey(equipmentloan);
+		return new ResultMessage(true,ResultCode.SUCCESS,"审核成功",null);
+	}
 }

@@ -5,12 +5,14 @@ if(typeof EquipmentVo == 'undefined') {
 	function EquipmentVo() {
 		this.equipmentid;
 		this.equipmentname;
-		this.typeid;
-		this.description;
-		this.loanable;
+		this.equipmentType;
+		this.equipmentloan;
+		this.estandard;
+		this.eprice;
 		this.totalnum;
-		this.underrepair;
+		this.loanablenum;
 	}
+	
 }
 
 EquipmentVo.prototype.voToJson = function() {

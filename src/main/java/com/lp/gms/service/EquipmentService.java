@@ -1,6 +1,8 @@
 package com.lp.gms.service;
 
+
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,7 @@ public class EquipmentService {
 			return new ResultMessage(true,ResultCode.SUCCESS,"修改成功",null);
 		}
 		
-		public ResultMessage selectEquipment(Page page) throws Exception {
+		public ResultMessage selectEquipmentList(Page page) throws Exception {
 			page.coutStartColum();
 			long total = equipmentDao.selectCount(page);
 			List<Equipment> equipments = equipmentDao.selectByPage(page);
@@ -42,7 +44,7 @@ public class EquipmentService {
 			return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
 		}
 		
-		public ResultMessage selectEquipment(Equipment equipment) throws Exception {
+		public ResultMessage selectOneEquipment(Equipment equipment) throws Exception {
 			Equipment eq = equipmentDao.selectByPrimaryKey(equipment.getEquipmentid());
 			return new ResultMessage(true,ResultCode.SUCCESS,"查询器材成功",eq);
 		}

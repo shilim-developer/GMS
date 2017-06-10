@@ -2,7 +2,6 @@ package com.lp.gms.dao;
 
 import java.util.List;
 
-import com.lp.gms.model.Equipment;
 import com.lp.gms.model.EquipmentType;
 import com.lp.gms.model.Page;
 

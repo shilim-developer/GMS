@@ -24,8 +24,8 @@ public class EquipmentTypeService {
 		return new ResultMessage(true,ResultCode.SUCCESS,"添加成功",null);
 	    }
 		
-		public ResultMessage deleteEquipmentType(List<EquipmentType> list) throws Exception {
-			equipmentTypeDao.deleteByList(list);
+		public ResultMessage deleteEquipmentType(List<EquipmentType> equipmentTypes) throws Exception {
+			equipmentTypeDao.deleteByList(equipmentTypes);
 			return new ResultMessage(true,ResultCode.SUCCESS,"删除成功",null);
 		}
 		
@@ -34,7 +34,7 @@ public class EquipmentTypeService {
 			return new ResultMessage(true,ResultCode.SUCCESS,"修改成功",null);
 		}
 		
-		public ResultMessage selectEquipmentType(Page page) throws Exception {
+		public ResultMessage selectEquipmentTypeList(Page page) throws Exception {
 			page.coutStartColum();
 			long total = equipmentTypeDao.selectCount(page);
 			List<EquipmentType> equipmentTypes = equipmentTypeDao.selectByPage(page);
@@ -42,7 +42,7 @@ public class EquipmentTypeService {
 			return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
 		}
 		
-		public ResultMessage selectEquipmentType(EquipmentType equipmentType) throws Exception {
+		public ResultMessage selectOneEquipmentType(EquipmentType equipmentType) throws Exception {
 			EquipmentType et = equipmentTypeDao.selectByPrimaryKey(equipmentType.getTypeid());
 			return new ResultMessage(true,ResultCode.SUCCESS,"查询器材类型成功",et);
 		}

@@ -6,7 +6,7 @@ controllers.controller("equipmentTypeList", ['$scope','$http','$state',function(
 
 	$scope.page.pageNum = 1;
 	$scope.page.pageSize = 3;
-	//获取场地列表
+	//获取器材类型列表
 	$scope.getEquipmentTypeList = function() {
 		//是否存在缓存页数
 		if(sessionStorage.equipmentTypeListPageNum) $scope.page.pageNum = sessionStorage.equipmentTypeListPageNum;
@@ -56,7 +56,7 @@ controllers.controller("equipmentTypeList", ['$scope','$http','$state',function(
 	}
 
 	//器材类型查询
-	$scope.searchPlace = function(e) {
+	$scope.searchEquipmentType = function(e) {
 		if(e && e.keyCode != 13) return;
 		sessionStorage.equipmentTypeListPageNum = 1;
 		$scope.page.fuzzy = true;
@@ -79,43 +79,47 @@ controllers.controller("equipmentTypeList", ['$scope','$http','$state',function(
 
 	//删除确认提示
 	$scope.deleteType = "";
-	$scope.deleteId = ""
-	$scope.deleteTips = function(type,id) {
+	$scope.deleteTypeid = ""
+	$scope.deleteTips = function(type,typeid) {
 		$scope.deleteType = type;
-		if(id){
-			$scope.deleteId = id;
+		if(typeid){
+			$scope.deleteTypeid = typeid;
 		}
 		$("#deleteTips").modal("show");
 	}
 
-	//场地删除
-	$scope.deletePlace= function() {
+	//器材类型删除
+	$scope.deleteEquipmentType= function() {
 		var equipmentTypeList = [];
 		if($scope.deleteType == "one") {
-			var placeVo = new PlaceVo();
-			placeVo.id = $scope.deleteId;
-			equipmentTypeList.push(placeVo);
+			var equipmentTypeVo = new EquipmentTypeVo();
+			equipmentTypeVo.typeid = $scope.deleteTypeid;
+			equipmentTypeList.push(equipmentTypeVo);
 		} else if ($scope.deleteType == "batch") {
 			for(var i=0;i<$scope.equipmentTypeList.list.length;i++) {
 				if($scope.equipmentTypeList.list[i].checked) {
-					var placeVo = new PlaceVo();
-					placeVo.id = $scope.equipmentTypeList.list[i].id;
-					equipmentTypeList.push(placeVo);	
+					var equipmentTypeVo = new EquipmeyntTypeVo();
+					equipmentTypeVo.typeid = $scope.equipmentTypeList.list[i].typeid;
+					equipmentTypeList.push(equipmentTypeVo);	
 				}
 			}
 		}
-		var url = baseUrl + "placeManage/deletePlace";
+		var url = baseUrl + "equipmentTypeManage/deleteEquipmentType";
 		var data = {equipmentTypeList:JSON.stringify(equipmentTypeList)};
 		$http.post(url,data)
 		.success(function(data) {
-			toastr.success('删除场地', '成功');
-			$scope.getEquipmentTypeList();
+			if(data.serviceResult == 1) {
+				toastr.success('删除器材类型', '成功');
+				$scope.getEquipmentTypeList();
+			} else {
+				toastr.error('删除器材类型', '失败');
+			}
 		});
 	}
 	
 	//跳转修改页
-	$scope.toEditPage = function(id) {
-		$state.go("editPlace",{id:id});
+	$scope.toEditPage = function(typeid) {
+		$state.go("editEquipmentType",{typeid:typeid});
 	}
 
 }]);

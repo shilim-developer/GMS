@@ -27,11 +27,11 @@ static EquipmentService equipmentService;
 	public void testAddEquipment() throws Exception {
 		Equipment equipment = new Equipment();
 		equipment.setEquipmentname("篮球");
-		equipment.setTypeid(4);
+		equipment.setEquipmentType(4);
 		equipment.setEstandard("正常");
-		equipment.setEprice("10元");
+		equipment.setEprice(10);
 		equipment.setTotalnum(50);
-	    equipment.setUnderrepair(false);
+	    equipment.setLoanablenum(40);
 		equipmentService.addEquipment(equipment);
 		}
 
@@ -39,7 +39,7 @@ static EquipmentService equipmentService;
 	@Test
 	public void testDeleteEquipment() {
 		Equipment equipment = new Equipment();
-		equipment.setEquipmentid(1);
+		equipment.setEquipmentid(4);
          List<Equipment> list = new ArrayList<>();
 		list.add(equipment);
 		try {
@@ -55,11 +55,11 @@ static EquipmentService equipmentService;
 		Equipment equipment = new Equipment();
 		equipment.setEquipmentid(1);
 	    equipment.setEquipmentname("杠铃");
-	    equipment.setTypeid(3);
+	    equipment.setEquipmentType(3);
 	    equipment.setEstandard("重10公斤");
-	    equipment.setEprice("15元");
+	    equipment.setEprice(15);
 	    equipment.setTotalnum(30);
-	    equipment.setUnderrepair(false);
+	    equipment.setLoanablenum(20);
 	    equipmentService.updateEquipment(equipment);
 	}
 	

@@ -53,20 +53,12 @@
 							<li><a ui-sref="placeList">租借记录</a></li>
 						</ul></li>
 					<li class=""><a><i
-							class="fa fa-delicious"></i> <span class="nav-label">器材租借</span><span
+							class="fa fa-dribbble"></i> <span class="nav-label">器材租借</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a ui-sref="placeTypeList">器材列表</a></li>
-							<li><a ui-sref="placeList">租借记录</a></li>
+							<li><a ui-sref="equipmentList">器材列表</a></li>
+							<li><a ui-sref="equipmentloanList">租借记录</a></li>
 						</ul></li>
-					<li class=""><a><i
-							class="fa fa-delicious"></i> <span class="nav-label">赛事预定</span><span
-							class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a ui-sref="placeTypeList">赛事预定</a></li>
-							<li><a ui-sref="placeList">赛事公告</a></li>
-						</ul></li>
-				</ul>
 
 			</div>
 		</nav>
@@ -84,7 +76,7 @@
 						<!--折叠菜单按钮结束-->
 						<!--<form role="search" class="navbar-form-custom" action="search_results.html">
 								<div class="form-group">
-									<input type="text" placeholder="查询" class="form-control" name="top-search" id="top-search">
+									<input type="text" equipmentholder="查询" class="form-control" name="top-search" id="top-search">
 								</div>
 							</form>-->
 					</div>
@@ -130,7 +122,7 @@
 
 	<!-- iCheck -->
 	<script src="../../js/plugins/iCheck/icheck.min.js"></script>
-
+     <script src="../../js/utils/utils.js"></script>
 	<!--angularjs-->
 	<script src="../../js/angular/angular.js" type="text/javascript"
 		charset="utf-8"></script>
@@ -138,6 +130,10 @@
 		type="text/javascript" charset="utf-8"></script>
 
 	<!--models-->
+	<script src="../../js/models/UserVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PageVo.js" type="text/javascript"
+		charset="utf-8"></script>
 	<script src="../../js/models/PageVo.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../../js/models/PlaceTypeVo.js" type="text/javascript"
@@ -145,6 +141,12 @@
 	<script src="../../js/models/PlaceVo.js" type="text/javascript"
 		charset="utf-8"></script>
 	<script src="../../js/models/PlaceStatusVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/EquipmentTypeVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/EquipmentVo.js" type="text/javascript"
+		charset="utf-8"></script>
+		<script src="../../js/models/EquipmentloanVo.js" type="text/javascript"
 		charset="utf-8"></script>
 
 	<!--contorllers-->
@@ -156,11 +158,18 @@
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/front/place/leasePlace.js"
 		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/front/equipment/equipmentList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/front/equipment/leaseEquipment.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/front/equipmentloan/equipmentloanList.js"
+		type="text/javascript" charset="utf-8"></script>
 
 	<!-- directives -->
 	<script src="../../js/directives/directives.js" type="text/javascript"
 		charset="utf-8"></script>
-
+<script src="../../js/filters/filters.js"
+		type="text/javascript" charset="utf-8"></script>
 
 	<script>
 			$(document).ready(function() {

@@ -4,26 +4,30 @@
   <resultMap id="BaseResultMap" type="com.lp.gms.model.Equipment">
     <id column="equipmentId" jdbcType="INTEGER" property="equipmentid" />
     <result column="equipmentName" jdbcType="VARCHAR" property="equipmentname" />
-    <result column="typeId" jdbcType="INTEGER" property="typeid" />
     <result column="eStandard" jdbcType="VARCHAR" property="estandard" />
-    <result column="ePrice" jdbcType="VARCHAR" property="eprice" />
+    <result column="ePrice" jdbcType="INTEGER" property="eprice" />
     <result column="totalNum" jdbcType="INTEGER" property="totalnum" />
-    <result column="underRepair" jdbcType="BIT" property="underrepair" />
-  </resultMap>
+    <result column="loanableNum" jdbcType="INTEGER" property="loanablenum" />
+ <association column="equipment_type" jdbcType="VARCHAR"
+	property="equipmentType" select="com.lp.gms.dao.EquipmentTypeDao.selectByPrimaryKey" />
+ </resultMap>
   <sql id="Base_Column_List">
-    equipmentId, equipmentName, typeId, eStandard, ePrice, totalNum, underRepair
+    equipmentId, equipmentName, equipment_type, eStandard, ePrice, totalNum, loanableNum
   </sql>
   <!-- 添加器材 -->
 	<insert id="insert" parameterType="com.lp.gms.model.Equipment">
+	<selectKey resultType="java.lang.Integer" keyProperty="equipmentid" order="AFTER">
+	          select @@IDENTITY as equipmentid
+	</selectKey>
 		insert into equipment (
-		equipmentName,typeId,eStandard,ePrice,totalNum,underRepair)
+		equipmentName,equipment_type,eStandard,ePrice,totalNum,loanableNum)
 		values
 		(#{equipmentname,jdbcType=VARCHAR},
-		#{typeid,jdbcType=INTEGER},
+		#{equipmentType.typeid,jdbcType=INTEGER},
 		#{estandard,jdbcType=VARCHAR},
-		#{eprice,jdbcType=VARCHAR},
+		#{eprice,jdbcType=INTEGER},
 		#{totalnum,jdbcType=INTEGER},
-		#{underrepair,jdbcType=BIT})
+		#{loanablenum,jdbcType=INTEGER})
 	</insert>
 
 	<!-- 删除器材 -->
@@ -41,11 +45,11 @@
 		update equipment
 		set
 		equipmentName = #{equipmentname,jdbcType=VARCHAR},
-		typeId = #{typeid,jdbcType=INTEGER},
-		eStandard = #{description,jdbcType=VARCHAR},
-		ePrice = #{eprice,jdbcType=VARCHAR},
+		equipment_type = #{equipmentType.typeid,jdbcType=INTEGER},
+		eStandard = #{estandard,jdbcType=VARCHAR},
+		ePrice = #{eprice,jdbcType=INTEGER},
 		totalNum = #{totalnum,jdbcType=INTEGER},
-		underRepair = #{underrepair,jdbcType=BIT}
+		loanableNum = #{loanablenum,jdbcType=INTEGER}
 		where equipmentId = #{equipmentid,jdbcType=INTEGER}
 	</update>
 
@@ -74,7 +78,7 @@
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					equipmementName like '%' #{keyWords} '%'
+					equipmentName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
 					equipmentName = #{keyWords}

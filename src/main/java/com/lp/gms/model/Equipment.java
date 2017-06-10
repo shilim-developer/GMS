@@ -5,15 +5,15 @@ public class Equipment {
 
     private String equipmentname;
 
-    private Integer typeid;
-
+    private EquipmentType equipmentType;
+   
     private String estandard;
 
-    private String eprice;
+    private Integer eprice;
 
     private Integer totalnum;
 
-    private Boolean underrepair;
+    private Integer loanablenum;
 
     public Integer getEquipmentid() {
         return equipmentid;
@@ -31,13 +31,7 @@ public class Equipment {
         this.equipmentname = equipmentname;
     }
 
-    public Integer getTypeid() {
-        return typeid;
-    }
 
-    public void setTypeid(Integer typeid) {
-        this.typeid = typeid;
-    }
 
     public String getEstandard() {
         return estandard;
@@ -47,11 +41,11 @@ public class Equipment {
         this.estandard = estandard;
     }
 
-    public String getEprice() {
+    public Integer getEprice() {
         return eprice;
     }
 
-    public void setEprice(String eprice) {
+    public void setEprice(Integer eprice) {
         this.eprice = eprice;
     }
 
@@ -63,11 +57,23 @@ public class Equipment {
         this.totalnum = totalnum;
     }
 
-    public Boolean getUnderrepair() {
-        return underrepair;
+    public Integer getLoanablenum() {
+        return loanablenum;
     }
 
-    public void setUnderrepair(Boolean underrepair) {
-        this.underrepair = underrepair;
+    public void setLoanablenum(Integer loanablenum) {
+        this.loanablenum = loanablenum;
     }
+
+	public EquipmentType getEquipmentType() {
+		return equipmentType;
+	}
+
+	public void setEquipmentType(EquipmentType equipmentType) {
+		this.equipmentType = equipmentType;
+	}
+
+
+	
+
 }

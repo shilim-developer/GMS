@@ -3,67 +3,43 @@
 <mapper namespace="com.lp.gms.dao.EquipmentloanDao">
   <resultMap id="BaseResultMap" type="com.lp.gms.model.Equipmentloan">
     <id column="equipmentLoanId" jdbcType="INTEGER" property="equipmentloanid" />
-    <result column="equipmentId" jdbcType="INTEGER" property="equipmentid" />
+    <result column="e_id" jdbcType="INTEGER" property="eId" />
+    <result column="eName" jdbcType="VARCHAR" property="ename" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
     <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
-    <result column="ePayment" jdbcType="VARCHAR" property="epayment" />
+    <result column="ePayment" jdbcType="INTEGER" property="epayment" />
     <result column="rentNum" jdbcType="INTEGER" property="rentnum" />
     <result column="eStatus" jdbcType="VARCHAR" property="estatus" />
+	<association property="equipment"
+		resultMap="com.lp.gms.dao.EquipmentDao.BaseResultMap" />
+	<association property="user"
+		resultMap="com.lp.gms.dao.UserDao.BaseResultMap" />
   </resultMap>
   <sql id="Base_Column_List">
-    equipmentLoanId, equipmentId, user_id, startDate, endDate, ePayment, rentNum, eStatus
+    equipmentLoanId, e_id ,eName ,user_id, startDate, endDate, ePayment, rentNum, eStatus
   </sql>
-  <!-- 添加器材租借 -->
+
+	<!-- 添加租借记录 -->
 	<insert id="insert" parameterType="com.lp.gms.model.Equipmentloan">
-		insert into equipmentloan (
-		equipmentId,user_id,rmanName,startDate,endDate,ePayment,rentNum,eStatus)
-		values
-		(#{equipmentid,jdbcType=INTEGER},
-		#{userId,jdbcType=INTEGER},
-		#{startdate,jdbcType=TIMESTAMP},
-		#{enddate,jdbcType=TIMESTAMP},
-		#{epayment,jdbcType=VARCHAR},
-		#{rentnum,jdbcType=INTEGER},
-		#{estatus,jdbcType=VARCHAR}
-		)
+		insert into equipmentloan(e_id,eName,user_id,startDate,endDate,ePayment,rentNum)
+		values (#{eId,jdbcType=INTEGER},#{ename,jdbcType=VARCHAR},#{userId,jdbcType=INTEGER},
+		#{startdate,jdbcType=TIMESTAMP},#{enddate,jdbcType=TIMESTAMP}, 
+		#{epayment,jdbcType=INTEGER},#{rentnum,jdbcType=INTEGER})
 	</insert>
-
-	<!-- 删除器材租借 -->
-	<delete id="deleteByList" parameterType="java.util.List">
-		delete from equipmentloan
-		where equipmentLoanId in
-		<foreach item="equipmentloan" collection="list" open="(" separator=","
-			close=")">
-			#{equipmentloan.equipmentloanid}
-		</foreach>
-	</delete>
-
-	<!--更新器材 租借-->
-	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Equipmentloan">
-		update equipmentloan
-		set
-		equipmentId = #{equipmentid,jdbcType=INTEGER},
-		user_id = #{userId,jdbcType=INTEGER},
-		startDate = #{startdate,jdbcType=TIMESTAMP},
-		endDate = #{enddate,jdbcType=TIMESTAMP},
-		ePayment = #{epayment,jdbcType=VARCHAR},
-		rentNum = #{rentnum,jdbcType=INTEGER},
-		eStatus = #{estatus,jdbcType=VARCHAR}
-		where equipmentLoanId = #{equipmentloanid,jdbcType=INTEGER}
-	</update>
 
 	<!-- 查询总记录数 -->
 	<select id="selectCount" parameterType="com.lp.gms.model.Page"
 		resultType="java.lang.Long">
-		select count(0) from equipmentloan
+		select count(0) from equipmentloan left join equipment  on e_id 
+		= equipment.equipmentid
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					equipmentId like '%' #{keyWords} '%'
+					equipmentName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					equipmentId = #{keyWords}
+					equipmentName = #{keyWords}
 				</if>
 			</if>
 		</where>
@@ -73,15 +49,21 @@
 	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
 		resultMap="BaseResultMap">
 		select
-		<include refid="Base_Column_List" />
-		from equipmentloan
+		equipmentloan.equipmentloanId, equipmentloan.e_id, equipmentloan.user_id, equipmentloan.startDate,
+		equipmentloan.endDate, equipmentloan.ePayment,equipmentloan.rentNum, equipmentloan.eStatus,
+		equipmentloan.eName,
+		gym_user.account
+		from equipmentloan 
+		left join equipment  on equipmentloan.e_id
+		= equipment.equipmentid
+		left join gym_user on equipmentloan.user_id = gym_user.id
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					equipmementId like '%' #{keyWords} '%'
+					equipment.equipmentName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					equipmentId = #{keyWords}
+					equipment.equipmentName = #{keyWords}
 				</if>
 			</if>
 		</where>
@@ -90,12 +72,114 @@
 		</if>
 	</select>
 
-	<!-- 通过器材租借id查询器材 -->
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+	<!-- 器材审核 -->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Equipmentloan">
+		update equipmentloan
+		set
+		eStatus = #{estatus,jdbcType=VARCHAR}
+		where equipmentloanId = #{equipmentloanid,jdbcType=INTEGER}
+	</update>
+<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from equipmentloan
-		where equipmentLoanId = #{equipmentloanid,jdbcType=INTEGER}
+		where equipmentloanId = #{equipmentloanid,jdbcType=INTEGER}
 	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from equipmentloan
+		where equipmentloanId = #{equipmentloanid,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.lp.gms.model.Equipmentloan">
+		insert into equipmentloan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="equipmentloanid != null">
+				equipmentloanId,
+			</if>
+			<if test="eId != null">
+				e_id,
+			</if>
+			<if test="ename != null">
+				eName,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="startdate!= null">
+				startDate,
+			</if>
+			<if test="enddate != null">
+				endDate,
+			</if>
+			<if test="epayment != null">
+				ePayment,
+			</if>
+			<if test="rentnum != null">
+				rentNum,
+			</if>
+			<if test="estatus != null">
+				eStatus,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="equipmentloanid != null">
+				#{equipmentloanid,jdbcType=INTEGER},
+			</if>
+			<if test="eId != null">
+				#{eId,jdbcType=INTEGER},
+			</if>
+			<if test="ename != null">
+				#{ename,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="startdate != null">
+				#{startdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="enddate != null">
+				#{enddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="epayment != null">
+				#{epayment,jdbcType=INTEGER},
+			</if>
+			<if test="rentnum != null">
+				#{rentnum,jdbcType=INTEGER},
+			</if>
+			<if test="estatus != null">
+				#{estatus,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lp.gms.model.Equipmentloan">
+		update equipmentloan
+		<set>
+			<if test="eId != null">
+				e_id = #{eId,jdbcType=INTEGER},
+			</if>
+			<if test="ename != null">
+				eName = #{ename,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="startdate != null">
+				startDate = #{startdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="enddate != null">
+				endDate = #{enddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="epayment != null">
+				ePayment = #{epayment,jdbcType=INTEGER},
+			</if>
+			<if test="rentnum != null">
+				rentNum = #{rentnum,jdbcType=INTEGER},
+			</if>
+			<if test="estatus != null">
+				eStatus = #{estatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where equipmentloanId = #{equipmentloanid,jdbcType=INTEGER}
+	</update>
 </mapper>

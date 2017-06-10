@@ -4,19 +4,27 @@ package com.lp.gms.model;
 public class Equipmentloan {
     private Integer equipmentloanid;
 
-    private Integer equipmentid;
+    private Integer eId;
 
     private Integer userId;
 
     private String startdate;
 
     private String  enddate;
+    
+    private Integer rentday;
 
-    private String epayment;
+    private Integer epayment;
 
     private Integer rentnum;
 
     private String estatus;
+    
+    private Equipment equipment;
+    
+    private User user;
+    
+    private String ename;
 
     public Integer getEquipmentloanid() {
         return equipmentloanid;
@@ -26,13 +34,7 @@ public class Equipmentloan {
         this.equipmentloanid = equipmentloanid;
     }
 
-    public Integer getEquipmentid() {
-        return equipmentid;
-    }
-
-    public void setEquipmentid(Integer equipmentid) {
-        this.equipmentid = equipmentid;
-    }
+  
 
     public Integer getUserId() {
         return userId;
@@ -59,11 +61,11 @@ public class Equipmentloan {
         this.enddate = enddate;
     }
 
-    public String getEpayment() {
+    public Integer getEpayment() {
         return epayment;
     }
 
-    public void setEpayment(String epayment) {
+    public void setEpayment(Integer epayment) {
         this.epayment = epayment;
     }
 
@@ -82,4 +84,44 @@ public class Equipmentloan {
     public void setEstatus(String estatus) {
         this.estatus = estatus;
     }
+
+	public Integer getRentday() {
+		return rentday;
+	}
+
+	public void setRentday(Integer rentday) {
+		this.rentday = rentday;
+	}
+
+	public Integer geteId() {
+		return eId;
+	}
+
+	public void seteId(Integer eId) {
+		this.eId = eId;
+	}
+
+	public Equipment getEquipment() {
+		return equipment;
+	}
+
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getEname() {
+		return ename;
+	}
+
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 }

@@ -27,7 +27,12 @@ public class PlaceServiceTest {
 		place.setPlaceType("篮球场");
 		place.setPlaceName("一号场");
 		place.setCost(111);
-		placeService.addPlace(place);
+		try {
+			placeService.addPlace(place);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -39,11 +44,16 @@ public class PlaceServiceTest {
 		List<Place> list = new ArrayList<>();
 		list.add(place1);
 		list.add(place2);
-		placeService.deletePlace(list);
+		try {
+			placeService.deletePlace(list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
-	public void testUpdatePlace() {
+	public void testUpdatePlace() throws Exception {
 		Place place = new Place();
 		place.setId(4);
 		place.setPlaceName("二号场");
@@ -54,7 +64,7 @@ public class PlaceServiceTest {
 	}
 	
 	@Test
-	public void testSelectPlace() {
+	public void testSelectPlace() throws Exception {
 		System.out.println(placeService.selectPlaceList(new Page(1, 2, null, null, null)));
 	}
 
