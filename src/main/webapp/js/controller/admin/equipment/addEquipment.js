@@ -41,7 +41,7 @@ controllers.controller("addEquipment", ['$scope','$http','$state','$timeout',fun
 		.success(function(data) {
 			if(data.serviceResult == 1) {
 				$scope.equipmentTypeList = data.resultParam.list;
-				$scope.equipment.equipmentType.typeid = $scope.equipmentTypeList?$scope.equipmentTypeList[0].typeid:'';
+				$scope.equipment.equipmenttype.typeid = $scope.equipmentTypeList?$scope.equipmentTypeList[0].typeid:'';
 			} else {
 				toastr.error('获取数据', '失败');
 			}

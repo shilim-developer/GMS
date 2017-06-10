@@ -7,7 +7,7 @@
 		<result column="place_location" jdbcType="VARCHAR" property="placeLocation" />
 		<result column="cost" jdbcType="INTEGER" property="cost" />
 		<result column="status" jdbcType="BIT" property="status" />
-		<association column="place_type" jdbcType="VARCHAR"
+		<association column="place_type" jdbcType="INTEGER"
 			property="placeType" select="com.lp.gms.dao.PlaceTypeDao.selectByPrimaryKey" />
 	</resultMap>
 	<sql id="Base_Column_List">
