@@ -1,8 +1,32 @@
 var indexApp = angular.module("indexApp",['ui.router','controllers']);
 var baseUrl = "/GMS/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
-	$urlRouterProvider.when("","/");
+	$urlRouterProvider.when("","/welcome");
 	$stateProvider
+	.state("welcome",{
+		url:"/welcome",
+		templateUrl:"welcome/index.html"
+	})
+	.state("userList",{
+		url:"/userList",
+		templateUrl:"user/user-list.html",
+		controller:"userList"
+	})
+	.state("addUser",{
+		url:"/addUser",
+		templateUrl:"user/user-add.html",
+		controller:"addUser"
+	})
+	.state("editUser",{
+		url:"/editUser/:id",
+		templateUrl:"user/user-edit.html",
+		controller:"editUser"
+	})
+	.state("roleList",{
+		url:"/roleList",
+		templateUrl:"role/role-list.html",
+		controller:"roleList"
+	})
 	.state("placeTypeList",{
 		url:"/placeTypeList",
 		templateUrl:"place-type/place-type-list.html",
@@ -18,30 +42,6 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		templateUrl:"place-type/place-type-edit.html",
 		controller:"editPlaceType"
 	})
-	.state("welcome",{
-		url:"/",
-		templateUrl:"welcome/index.html"
-	})
-	 .state("userList",{
-		url:"/userList",
-		templateUrl:"user/user-list.html",
-		controller:"userList"
-	})
-   .state("addUser",{
-	    url:"/addUser",
-		templateUrl:"user/user-add.html",
-		controller:"addUser"
-	})
-   .state("editUser",{
-		url:"/editUser/:id",
-	    templateUrl:"user/user-edit.html",
-		controller:"editUser"
-    })
-    .state("roleList",{
-		url:"/roleList",
-	    templateUrl:"role/role-list.html",
-		controller:"roleList"
-    })
 	.state("placeList",{
 		url:"/placeList",
 		templateUrl:"place/place-list.html",
