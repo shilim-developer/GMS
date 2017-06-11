@@ -93,4 +93,12 @@ public class UserAction extends ActionSupport {
 	public void isExistName() throws Exception {
 		resultMessage = userService.userAccountExist(JsonUtil.jsonToObject(user,User.class));
 	}
+	
+	public void isExistPwd() throws Exception {
+		resultMessage = userService.pwdVaild(JsonUtil.jsonToObject(user,User.class));
+	}
+	
+	public void updatePwd() throws Exception {
+		resultMessage = userService.updatePwd(JsonUtil.jsonToObject(user,User.class));
+	}
 }

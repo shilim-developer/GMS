@@ -17,6 +17,11 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/placeLeaseRecordList",
 		templateUrl:"place-lease-record/place-lease-record-list.html",
 		controller:"placeLeaseRecordList"
+	})
+	.state("updatePwd",{
+		url:"/updatePwd/:id",
+		templateUrl:"user/updatePassword.html",
+		controller:"updatePwd"
 	});
 }])
 .config(['$httpProvider',function($httpProvider) {
