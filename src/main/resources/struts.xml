@@ -76,4 +76,48 @@
 		<global-allowed-methods>regex:.*</global-allowed-methods>
 		<action name="*" class="placeLeaseRecordAction" method="{1}"></action>
 	</package>
+
+	<package name="equipmentType" namespace="/equipmentTypeManage"
+		extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="equipmentTypeAction" method="{1}"></action>
+	</package>
+
+	<package name="equipment" namespace="/equipmentManage" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="equipmentAction" method="{1}"></action>
+	</package>
+
+	<package name="equipmentloanManage" namespace="/equipmentloanManage"
+		extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="equipmentloanAction" method="{1}"></action>
+	</package>
+
+	<package name="user" namespace="/userFront" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="userAction" method="{1}"></action>
+	</package>
+
+	<package name="equipmentloan" namespace="/equipmentloanFront"
+		extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="equipmentloanAction" method="{1}"></action>
+	</package>
+
+	<package name="game" namespace="/gameManage" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="gameAction" method="{1}"></action>
+	</package>
+	<package name="post" namespace="/postManage" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="postAction" method="{1}"></action>
+	</package>
 </struts>

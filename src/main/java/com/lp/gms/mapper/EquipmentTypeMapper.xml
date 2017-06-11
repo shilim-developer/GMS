@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.EquipmentTypeDao">
+  <resultMap id="BaseResultMap" type="com.lp.gms.model.EquipmentType">
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="typeName" jdbcType="VARCHAR" property="typename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+		typeId,typeName
+   </sql>
+  <!--添加器材类型-->
+  <insert id="insert" parameterType="com.lp.gms.model.EquipmentType">
+    insert into equipmenttype (typeName
+      )
+    values (#{typename,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- 删除器材类型 -->
+	<delete id="deleteByList" parameterType="java.util.List">
+		delete from equipmenttype
+		where typeId in
+		<foreach item="equipmenttype" collection="list" open="(" separator=","
+			close=")">
+			#{equipmenttype.typeid}
+		</foreach>
+	</delete>
+
+	<!-- 更新器材类型 -->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.EquipmentType">
+		update equipmenttype
+		set
+		typeName = #{typename,jdbcType=VARCHAR}
+		where typeId = #{typeid,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询总记录数 -->
+	<select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+		select count(0) from equipmenttype
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					typeName like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					typeName = #{keyWords}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询列表 -->
+	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from equipmenttype
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					typeName like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					typeName = #{keyWords}
+				</if>
+			</if>
+		</where>
+		<if test="pageNum > 0 and pageSize > 0">
+			limit #{startColum},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 通过id查询场地 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from equipmenttype
+		where typeId = #{typeid,jdbcType=INTEGER}
+	</select>
+
+</mapper>

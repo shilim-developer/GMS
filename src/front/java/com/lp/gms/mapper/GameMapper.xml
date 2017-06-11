@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lp.gms.dao.GameDao">
+	<resultMap id="BaseResultMap" type="com.lp.gms.model.Game">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="gamename" jdbcType="VARCHAR" property="gamename" />
+		<result column="gametype" jdbcType="VARCHAR" property="gametype" />
+		<result column="gameplace" jdbcType="VARCHAR" property="gameplace" />
+		<result column="equip" jdbcType="VARCHAR" property="equip" />
+		<result column="gametime" jdbcType="VARCHAR" property="gametime" />
+		<result column="gamedec" jdbcType="VARCHAR" property="gamedec" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,gamename, gametype, gameplace, equip, gametime, gamedec,status
+	</sql>
+
+	<!-- 添加赛事 -->
+	<insert id="insert" parameterType="com.lp.gms.model.Game">
+		insert into game (
+		gamename, gametype, gameplace, equip, gametime, gamedec,status)
+		values
+		(#{gamename,jdbcType=VARCHAR},
+		#{gametype,jdbcType=VARCHAR},
+		#{gameplace,jdbcType=VARCHAR},
+		#{equip,jdbcType=VARCHAR},
+		#{gametime,jdbcType=VARCHAR},
+		#{gamedec,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR})
+	</insert>
+	
+
+	<!-- 删除赛事 -->
+	<delete id="deleteByList" parameterType="java.util.List">
+		delete from game
+		where id in
+		<foreach item="game" collection="list" open="(" separator=","
+			close=")">
+			#{game.id}
+		</foreach>
+	</delete>
+
+	<!-- 修改赛事 -->
+	<update id="updateByPrimaryKey" parameterType="com.lp.gms.model.Game">
+		update game
+		set
+		gamename = #{gamename,jdbcType=VARCHAR},
+		gametype = #{gametype,jdbcType=VARCHAR},
+		gameplace =
+		#{gameplace,jdbcType=VARCHAR},
+		equip = #{equip,jdbcType=VARCHAR},
+		gametime = #{gametime,jdbcType=VARCHAR},
+		gamedec =
+		#{gamedec,jdbcType=VARCHAR},
+		status =
+		#{status,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询总记录数 -->
+	<select id="selectCount" parameterType="com.lp.gms.model.Page"
+		resultType="java.lang.Long">
+		select count(0) from game
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					gamename like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					gamename = #{keyWords}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<!-- 分页查询列表 -->
+	<select id="selectByPage" parameterType="com.lp.gms.model.Page"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from game
+		<where>
+			<if test="keyWords != null and keyWords != ''">
+				<if test="fuzzy == true">
+					gamename like '%' #{keyWords} '%'
+				</if>
+				<if test="fuzzy == false">
+					gamename = #{keyWords}
+				</if>
+			</if>
+		</where>
+		<if test="pageNum > 0 and pageSize > 0">
+			limit #{startColum},#{pageSize}
+		</if>
+	</select>
+
+	<!-- 通过id查询赛事 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from game
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+</mapper>

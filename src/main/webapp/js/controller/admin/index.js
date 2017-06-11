@@ -6,7 +6,7 @@ var controllers = angular.module("controllers", []);
 /**
  * 主页控制器
  */
-controllers.controller("index",['$scope','$http','$stateParams',function($scope,$http,$stateParams) {
+controllers.controller("index",['$scope','$http','$stateParams','loginCheckService',function($scope,$http,$stateParams,loginCheckService) {
 	$scope.user = new UserVo();
 	
 	$scope.roleControl = function() {
@@ -20,6 +20,8 @@ controllers.controller("index",['$scope','$http','$stateParams',function($scope,
 			if(data.serviceResult == 1){
 				console.log(data);
                 $scope.user = data.resultParam;
+			} else {
+				loginCheckService.loginCheck(data.serviceResult);
 			}
 		});
 	}
