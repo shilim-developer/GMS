@@ -28,7 +28,7 @@ public class UserService {
 	public ResultMessage addUser(User user) throws Exception {
 		String password = MD5Utils.md5(user.getPassword());
 		user.setPassword(password);
-		userDao.insert(user);
+		userDao.insertSelective(user);
 		return new ResultMessage(true,ResultCode.SUCCESS,"添加成功",null);
 	}
 	
@@ -56,13 +56,13 @@ public class UserService {
 	}
 
 	public ResultMessage selectRole(User user) throws Exception {
-		int isExist = userDao.userNameExits(user.getAccount());
-		return new ResultMessage(true,ResultCode.SUCCESS,"查询成功",isExist);
+		List<Role> role = userDao.findRole(user.getId());
+		return new ResultMessage(true,ResultCode.SUCCESS,"查询成功",role);
 	}
 	
 	public ResultMessage userAccountExist(User user) throws Exception {
-		List<Role> role = userDao.findRole(user.getId());
-		return new ResultMessage(true,ResultCode.SUCCESS,"查询成功",role);
+		int isExist = userDao.userNameExits(user.getAccount());
+		return new ResultMessage(true,ResultCode.SUCCESS,"查询成功",isExist);
 	}
 	
 	public ResultMessage login(User user) {

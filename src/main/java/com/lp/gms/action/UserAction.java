@@ -90,4 +90,7 @@ public class UserAction extends ActionSupport {
 		resultMessage = userService.updateUser(JsonUtil.jsonToObject(user,User.class));
 	}
 	
+	public void isExistName() throws Exception {
+		resultMessage = userService.userAccountExist(JsonUtil.jsonToObject(user,User.class));
+	}
 }

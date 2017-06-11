@@ -89,7 +89,7 @@ controllers.controller("roleList", ['$scope','$http','$state',function($scope,$h
 		$("#deleteTips").modal("show");
 	}
 
-	//用户删除
+	//角色删除
 	$scope.deleteRole= function() {
 		var roleList = [];
 		if($scope.deleteType == "one") {

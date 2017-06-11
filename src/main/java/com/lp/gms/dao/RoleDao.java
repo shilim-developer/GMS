@@ -23,6 +23,7 @@ public interface RoleDao {
      
     List<Role> selectAll();
     
+    void deleteByList(List<Role> list);
     /**
      * 分页查询角色列表
      * @param page

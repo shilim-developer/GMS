@@ -95,7 +95,7 @@ controllers.controller("userList", ['$scope','$http','$state',function($scope,$h
 	}
 
 	//用户删除
-	$scope.deletePlace= function() {
+	$scope.deleteUser= function() {
 		var userList = [];
 		if($scope.deleteType == "one") {
 			var userVo = new UserVo();

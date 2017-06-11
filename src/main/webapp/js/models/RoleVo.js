@@ -7,6 +7,6 @@ if(typeof RoleVo == 'undefined') {
 	}
 }
 
-UserVo.prototype.voToJson = function() {
+RoleVo.prototype.voToJson = function() {
 	return JSON.stringify(this);
 }

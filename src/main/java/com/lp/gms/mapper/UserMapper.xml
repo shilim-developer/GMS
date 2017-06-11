@@ -66,8 +66,8 @@
       <if test="status != null">
         status,
       </if>
-      <if test="roleId != null">
-        role_id,
+      <if test="role != null">
+        role,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -98,8 +98,8 @@
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=BIGINT},
+      <if test="role != null">
+        #{role.id,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
