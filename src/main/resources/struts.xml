@@ -14,12 +14,12 @@
 			<interceptor name="resultmessageInterceptor"
 				class="com.lp.gms.intercepter.ResultMessageInterceptor">
 			</interceptor>
-			<interceptor name="loginInterceptor"
+  			<interceptor name="loginInterceptor"
 			    class="com.lp.gms.intercepter.LoginInterceptor">
-			</interceptor>
+			</interceptor> 
 			<interceptor-stack name="mydefault">
 				<!-- 进入拦截 -->
-				<interceptor-ref name="loginInterceptor" />
+  				<interceptor-ref name="loginInterceptor" /> 
 				<interceptor-ref name="defaultStack" />
 				<!-- 返回拦截 -->
 				<interceptor-ref name="resultmessageInterceptor" />
