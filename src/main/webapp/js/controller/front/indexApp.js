@@ -3,6 +3,11 @@ var baseUrl = "/GMS/";
 indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
 	$urlRouterProvider.when("","/placeList");
 	$stateProvider
+	.state("updatePwd",{
+		url:"/updatePwd/:id",
+		templateUrl:"user/updatePassword.html",
+		controller:"updatePwd"
+	})
 	.state("placeList",{
 		url:"/placeList",
 		templateUrl:"place/place-list.html",

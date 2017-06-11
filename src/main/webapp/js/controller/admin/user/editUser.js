@@ -21,6 +21,7 @@ controllers.controller("editUser", ['$scope','$http','$state','$stateParams','$t
 			$scope.user.mobilephone = rUser.mobilePhone;
 			$scope.user.address = rUser.address;
 			$scope.user.role.description = rUser.role.description;
+			$scope.user.role.id = rUser.role.id;
 		});
 	}
 	$scope.getUser();
@@ -42,7 +43,7 @@ controllers.controller("editUser", ['$scope','$http','$state','$stateParams','$t
 		.success(function(data) {
 			if(data.serviceResult == 1){
 				$scope.roleList = data.resultParam;
-				$scope.user.role.id = $scope.roleList[0].id;
+				$scope.user.role.id = $scope.roleList[$scope.role.id - 1].id;
 			}
 		});
 	}

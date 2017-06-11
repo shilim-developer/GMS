@@ -66,6 +66,8 @@ public interface UserDao {
     
     int userNameExits(String name);
     
+    User passwordValid(User user);
+    
     /**
      * 删除用户
      * @param 登录用户名，密码

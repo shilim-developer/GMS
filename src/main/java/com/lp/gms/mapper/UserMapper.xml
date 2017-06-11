@@ -184,6 +184,11 @@
     <include refid="Base_Column_List" />
     from gym_user where account=#{account} and password=#{password}
   </select>
+  <select id="passwordValid" parameterType="com.lp.gms.model.User" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gym_user where password=#{password}
+  </select>
   <select id="userNameExits" resultType="int">
     select count(0) from gym_user where account=#{account}
   </select>

@@ -71,6 +71,19 @@ public class UserService {
         User rUser = userDao.accountValid(user);
         ResultMessage resultMessage = null;
         if(rUser == null) {
+        	resultMessage = new ResultMessage(false,ResultCode.FAIL,"旧密码错误",null);
+        }else {
+        	resultMessage = new ResultMessage(true,ResultCode.SUCCESS,"旧密码正确",rUser);
+        }
+		return resultMessage;
+	}
+	
+	public ResultMessage pwdVaild(User user) {
+		String password = MD5Utils.md5(user.getPassword());
+		user.setPassword(password);
+		User rUser = userDao.passwordValid(user);
+        ResultMessage resultMessage = null;
+        if(rUser == null) {
         	resultMessage = new ResultMessage(false,ResultCode.NO_LOGIN,"用户名或者密码错误",null);
         }else {
         	resultMessage = new ResultMessage(true,ResultCode.SUCCESS,"登录成功",rUser);
@@ -89,5 +102,19 @@ public class UserService {
 		List<User> users = userDao.selectByPage(page);
 		PageInfo<User> pageInfo = new PageInfo<User>(page, total, users);
 		return new ResultMessage(true,ResultCode.SUCCESS,"分页成功",pageInfo);
+	}
+	
+	public ResultMessage updatePwd(User user) throws Exception {
+		String password = MD5Utils.md5(user.getPassword());
+		user.setPassword(password);
+		User rUser = userDao.passwordValid(user);
+		int pwd = userDao.updateByPrimaryKeySelective(rUser);
+		ResultMessage resultMessage = null;
+		if(pwd > 0){
+			resultMessage = new ResultMessage(true,ResultCode.FAIL,"更改成功",null);
+		}else{
+			resultMessage = new ResultMessage(true,ResultCode.SUCCESS,"更改成功",null);
+		}
+		return resultMessage;
 	}
 }
