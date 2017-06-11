@@ -75,9 +75,13 @@
 									<td ng-bind="item.epayment"></td>
 									<td ng-bind="item.rentnum"></td>
 									<td ng-bind="item.estatus"></td>
-									<td class="text-center"><a title="支付" ng-disabled="true"
-										ng-click="toLeasePage(item.equipmentloanid)"><i class="fa fa-money"></i>
-											支付</a></td>
+									<td class="text-center">
+									<a ng-show="item.estatus!='审核不通过'" title="支付" ng-disabled="true"
+										ng-click="openPayModal()"><i class="fa fa-money"></i>
+											支付</a>
+									<a ng-show="item.estatus =='审核不通过'" title="不可支付" ng-disabled="false" ><i class="fa fa-ban"></i>
+											审核不成功,不可支付</a>		
+											</td>
 								</tr>
 								<tr ng-show="equipmentloanList.list.length==0">
 									<td class="text-center" colspan="8">没有记录</td>

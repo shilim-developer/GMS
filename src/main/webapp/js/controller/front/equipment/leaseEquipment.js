@@ -72,20 +72,21 @@ controllers.controller("leaseEquipment", ['$scope','$rootScope','$http','$state'
 		},300);
 	}
 	
+	
+	
+	
 	$scope.count = function() {
 		if($scope.equipmentloan.rentnum < 0 || $scope.equipmentloan.rentnum > $scope.equipment.loanablenum )
 			$scope.equipmentloan.rentnum =1;
 		$scope.equipmentloan.epayment = $scope.equipmentloan.rentnum * $scope.equipment.eprice;
 	}
 	
-	
-	//租借天数
-	$scope.costDate = function(){  
-		
-		}
+	$scope.deleteLoanablenum = function() {
+	$scope.equipment.loanablenum = $scope.equipment.loanablenum - $scope.equipmentloan.rentnum;
+	}
+
 	      
     
-	         
 	
 	
 	$scope.addDate = function(){ 

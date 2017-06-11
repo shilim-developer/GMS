@@ -112,8 +112,12 @@ controllers.controller("equipmentTypeList", ['$scope','$http','$state',function(
 				toastr.success('删除器材类型', '成功');
 				$scope.getEquipmentTypeList();
 			} else {
-				toastr.error('删除器材类型', '失败');
+				loginCheckService.loginCheck(data.serviceResult);
+				toastr.error(data.resultInfo, '失败');
 			}
+		})
+		.error(function() {
+			toastr.error("网络繁忙", '失败');
 		});
 	}
 	
