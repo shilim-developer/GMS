@@ -113,6 +113,12 @@ controllers.controller("equipmentloanList", ['$scope','$http','$state',function(
 		});
 	}
 	
+	//支付
+	$scope.openPayModal =function(){
+		alert("支付成功!");
+	}
+	
+
 	//跳转修改页
 	$scope.toLeasePage = function(equipmentloanid) {
 		$state.go("editEquipmentloan",{equipmentloanid:equipmentloanid});
