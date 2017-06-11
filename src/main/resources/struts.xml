@@ -110,5 +110,14 @@
 		<action name="*" class="equipmentloanAction" method="{1}"></action>
 	</package>
 
-
+	<package name="game" namespace="/gameManage" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="gameAction" method="{1}"></action>
+	</package>
+	<package name="post" namespace="/postManage" extends="default">
+		<!-- 设置访问点方法 -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="*" class="postAction" method="{1}"></action>
+	</package>
 </struts>
