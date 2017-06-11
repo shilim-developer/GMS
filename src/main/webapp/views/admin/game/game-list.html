@@ -37,7 +37,7 @@
 						</select>
 						</label>
 						<div class="input-group pull-left" style="margin-left: 10px;">
-							<a data-toggle="modal" class="btn btn-sm  btn-primary"
+							<a class="btn btn-sm  btn-primary"
 								ui-sref="addGame"> <i class="fa fa-plus"></i> 添加赛事
 							</a>
 						</div>
@@ -46,7 +46,7 @@
 								placeholder="输入赛事名称查找" ng-model="page.keyWords"
 								ng-keyup="searchGame($event)">
 							<div class="input-group-btn">
-								<button class="btn btn-sm btn-primary" data-toggle="modal"
+								<button class="btn btn-sm btn-primary"
 									ng-click="searchGame()">查询</button>
 							</div>
 						</div>
@@ -77,7 +77,7 @@
 									<td ng-bind="item.gametype"></td>
 									<td ng-bind="item.gameplace"></td>
 									<td ng-bind="item.equip"></td>
-									<td ng-bind="item.gametime"></td>
+									<td ng-bind="item.gametime | startDateFormat"></td>
 									<td ng-bind="item.gamedec"></td>
 									<td class="text-center"><a title="审核"
 										ng-click="toCheckGame(item.id)">{{item.status | statusFormat}}</a></td>

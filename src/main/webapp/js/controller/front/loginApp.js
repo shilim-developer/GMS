@@ -18,21 +18,24 @@ loginApp.controller("login", ['$scope','$http','$window',function($scope,$http,$
 	$scope.user = new UserVo();
 	
 	$scope.login = function() {
-		var url = baseUrl + "userFront/login";
+		var url = baseUrl + "userManage/login";
 		var data = {user:$scope.user.voToJson()};
 		$http.post(url,data)
 		.success(function(data) {
 			console.log(data);
 			if(data.serviceResult == 1) {
 				console.log(data.userToken);
+				sessionStorage.setItem("userId", data.resultParam.id);
+				sessionStorage.setItem("userName", data.resultParam.account);
+//				sessionStorage.userId = data.resultParam.id;
 				//跳转到首页
 				$window.location.href = "index.html";
 			} else {
-				console.log(data.userToken);
+				toastr.error('失败', data.resultInfo);
 			}
 		})
 		.error(function(data) {
-			console.log(data.userToken);
+			toastr.error('登陆', "网络繁忙");
 		});
 	}
 	

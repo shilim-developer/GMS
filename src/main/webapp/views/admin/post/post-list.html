@@ -37,7 +37,7 @@
 						</select>
 						</label>
 						<div class="input-group pull-left" style="margin-left: 10px;">
-							<a data-toggle="modal" class="btn btn-sm  btn-primary"
+							<a class="btn btn-sm  btn-primary"
 								ui-sref="addPost"> <i class="fa fa-plus"></i> 添加公告
 							</a>
 						</div>
@@ -46,7 +46,7 @@
 								placeholder="输入公告名称查找" ng-model="page.keyWords"
 								ng-keyup="searchPost($event)">
 							<div class="input-group-btn">
-								<button class="btn btn-sm btn-primary" data-toggle="modal"
+								<button class="btn btn-sm btn-primary"
 									ng-click="searchPost()">查询</button>
 							</div>
 						</div>
@@ -71,7 +71,7 @@
 										ng-bind="(postList.pageNum-1)*postList.pageSize+$index+1 || 0"></td>
 									<td ng-bind="item.name"></td>
 									<td ng-bind="item.context"></td>
-									<td ng-bind="item.time"></td>
+									<td ng-bind="item.time | startDateFormat"></td>
 									<td class="text-center"><a title="修改"
 										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
 										<a title="删除" ng-click="deleteTips('one',item.id)"><i

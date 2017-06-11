@@ -30,8 +30,8 @@
 								src="../../img/profile_small.jpg" />
 							</span> <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear"> <span class="block m-t-xs"> <strong
-										class="font-bold">{{sysUser.account}}</strong>
-								</span> <span class="text-muted text-xs block">个人中心<b
+										class="font-bold" ng-bind="user.name"></strong>
+								</span> <span class="text-muted text-xs block" ng-bind="user.role.description"><b
 										class="caret"></b></span>
 							</span>
 							</a>

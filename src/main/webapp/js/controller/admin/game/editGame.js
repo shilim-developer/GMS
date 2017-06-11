@@ -16,7 +16,7 @@ controllers.controller("editGame", ['$scope','$http','$state','$stateParams','$t
 			$scope.game.gametype = rGame.gametype;
 			$scope.game.gameplace = rGame.gameplace;
 			$scope.game.equip = rGame.equip;
-			$scope.game.gametime = rGame.gametime;
+			$scope.game.gametime = new Date(rGame.gametime);
 			$scope.game.gamedec = rGame.gamedec;
 			$scope.game.status = rGame.status;
 		});

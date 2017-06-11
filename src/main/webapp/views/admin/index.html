@@ -61,13 +61,20 @@
 							<li><a ui-sref="placeList">场地管理</a></li>
 							<li><a ui-sref="placeLeaseRecordList">租借管理</a></li>
 						</ul></li>
-						<li class=""><a><i
+						<li ng-show="user.role.description == '超级管理员' || user.role.description == '器材管理员'" class=""><a><i
 							class="fa fa-dribbble"></i> <span class="nav-label">器材管理</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li><a ui-sref="equipmentTypeList">类型管理</a></li>
 							<li><a ui-sref="equipmentList">器材管理</a></li>
 							<li><a ui-sref="equipmentloanList">租借管理</a></li>
+						</ul></li>
+						<li ng-show="user.role.description == '超级管理员' || user.role.description == '赛事管理员'" class=""><a><i
+							class="fa fa-table"></i> <span class="nav-label">赛事管理</span><span
+							class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li><a ui-sref="gameList">赛事管理</a></li>
+							<li><a ui-sref="postList">公告管理</a></li>
 						</ul></li>
 					
 				</ul>
@@ -165,6 +172,10 @@
 		charset="utf-8"></script>
 	<script src="../../js/models/EquipmentloanVo.js" type="text/javascript"
 		charset="utf-8"></script>
+	<script src="../../js/models/GameVo.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/models/PostVo.js" type="text/javascript"
+		charset="utf-8"></script>
 
 	<!--contorllers-->
 	<script src="../../js/controller/admin/index.js" type="text/javascript"
@@ -211,6 +222,21 @@
 	<script src="../../js/controller/admin/equipmentType/editEquipmentType.js"
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/admin/equipmentloan/equipmentloanList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<!-- game -->
+	<script src="../../js/controller/admin/game/gameList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/game/addGame.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/game/editGame.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/game/checkGame.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/post/postList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/post/addPost.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/admin/post/editPost.js"
 		type="text/javascript" charset="utf-8"></script>
 		
 	<!-- services -->

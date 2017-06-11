@@ -99,23 +99,38 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 	})
 	.state("gameList",{
 		url:"/gameList",
-		templateUrl:"views/game/game-list.html",
+		templateUrl:"game/game-list.html",
 		controller:"gameList"
 	})
 	.state("checkGame",{
 		url:"/checkGame/:id",
-		templateUrl:"views/game/game-check.html",
+		templateUrl:"game/game-check.html",
 		controller:"checkGame"
 	})
 	.state("addGame",{
 		url:"/addGame",
-		templateUrl:"views/game/game-add.html",
+		templateUrl:"game/game-add.html",
 		controller:"addGame"
 	})
 	.state("editGame",{
 		url:"/editGame/:id",
-		templateUrl:"views/game/game-edit.html",
+		templateUrl:"game/game-edit.html",
 		controller:"editGame"
+	})
+	.state("postList",{
+		url:"/postList",
+		templateUrl:"post/post-list.html",
+		controller:"postList"
+	})
+	.state("addPost",{
+		url:"/addPost",
+		templateUrl:"post/post-add.html",
+		controller:"addPost"
+	})
+	.state("editPost",{
+		url:"/editPost/:id",
+		templateUrl:"post/post-edit.html",
+		controller:"editPost"
 	})
 }])
 .config(['$httpProvider',function($httpProvider) {

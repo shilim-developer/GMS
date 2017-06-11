@@ -14,7 +14,7 @@ controllers.controller("editPost", ['$scope','$http','$state','$stateParams','$t
 			$scope.post.id = rPost.id;
 			$scope.post.name = rPost.name;
 			$scope.post.context = rPost.context;
-			$scope.post.time = rPost.time;
+			$scope.post.time = new Date(rPost.time);
 			
 		});
 	}
