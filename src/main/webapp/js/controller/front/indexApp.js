@@ -37,6 +37,22 @@ indexApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$
 		url:"/equipmentloanList",
 		templateUrl:"equipmentloan/equipmentloan-list.html",
 		controller:"equipmentloanList"
+	})
+	.state("gameList",{
+		url:"/gameList",
+		templateUrl:"game/game-list.html",
+		controller:"gameList"
+	})
+	
+	.state("addGame",{
+		url:"/addGame",
+		templateUrl:"game/game-add.html",
+		controller:"addGame"
+	})
+	.state("editGame",{
+		url:"/editGame/:id",
+		templateUrl:"game/game-edit.html",
+		controller:"editGame"
 	});
 }])
 .config(['$httpProvider',function($httpProvider) {

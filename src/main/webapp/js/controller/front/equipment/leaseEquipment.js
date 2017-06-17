@@ -108,7 +108,7 @@ controllers.controller("leaseEquipment", ['$scope','$rootScope','$http','$state'
 		$scope.equipmentloan.ename = $scope.equipment.equipmentname;
 		$scope.equipmentloan.rentnum = $scope.equipmentloan.rentnum;
 		$scope.equipmentloan.epayment = $scope.equipmentloan.epayment;
-		$scope.equipmentloan.userId = $rootScope.sysUser.id;
+		$scope.equipmentloan.userId = sessionStorage.getItem("userId");
 		$scope.equipmentloan.startdate = $scope.equipmentloan.startdate;
 		$scope.equipmentloan.enddate = $scope.equipmentloan.enddate;
 		var url = baseUrl + "equipmentloanFront/leaseEquipment";

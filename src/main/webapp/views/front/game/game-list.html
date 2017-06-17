@@ -10,11 +10,11 @@
 	<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 		<div class="col-lg-10">
-			<h2>器材租借</h2>
+			<h2>赛事系统</h2>
 			<ol class="breadcrumb">
 				<li><a href="#">主页</a></li>
-				<li><a>租借记录</a></li>
-				<li class="active"><strong>租借列表</strong></li>
+				<li><a>赛事系统</a></li>
+				<li class="active"><strong>赛事列表</strong></li>
 			</ol>
 		</div>
 		<div class="col-lg-2"></div>
@@ -27,7 +27,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>器材列表</h5>
+						<h5>赛事列表</h5>
 					</div>
 					<div class="ibox-content">
 						<div class="input-group pull-left"
@@ -36,13 +36,18 @@
 							class="form-control input-sm">
 						</select>
 						</label>
+						<div class="input-group pull-left" style="margin-left: 10px;">
+							<a data-toggle="modal" class="btn btn-sm  btn-primary"
+								ui-sref="addGame"> <i class="fa fa-plus"></i> 添加赛事
+							</a>
+						</div>
 						<div class="input-group col-lg-4 pull-right">
 							<input type="text" class="form-control input-sm" name="search"
-								equipmentholder="输入器材名称查找" ng-model="page.keyWords"
-								ng-keyup="searchEquipmentloan($event)">
+								placeholder="输入赛事名称查找" ng-model="page.keyWords"
+								ng-keyup="searchGame($event)">
 							<div class="input-group-btn">
 								<button class="btn btn-sm btn-primary" data-toggle="modal"
-									ng-click="searchEquipmentloan()">查询</button>
+									ng-click="searchGame()">查询</button>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -52,54 +57,49 @@
 									<th class="col-lg-1 text-center"><input type="checkbox"
 										class="i-checks" ng-model="checkAll" i-check /></th>
 									<th>序号</th>
-									<th>器材名称</th>
-									<th>租借人</th>
-									<th>租借起始时间</th>
-									<th>结束时间</th>
-									<th>器材总费用</th>
-									<th>租借数量</th>
-									<th>租借状态</th>
+									<th>赛事名称</th>
+									<th>赛事类型</th>
+									<th>场地位置</th>
+									<th>赛事器材</th>
+									<th>赛事时间</th>
+									<th>赛事介绍</th>
 									<th class="col-lg-1 text-center">操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="item in equipmentloanList.list">
+								<tr ng-repeat="item in gameList.list">
 									<td class="text-center"><input type="checkbox"
 										class="i-checks" ng-model="item.checked" i-check /></td>
 									<td
-										ng-bind="(equipmentloanList.pageNum-1)*equipmentloanList.pageSize+$index+1 || 0"></td>
-									<td ng-bind="item.ename"></td>
-									<td ng-bind="item.user.account"></td>
-									<td ng-bind="item.startdate | startDateFormat"></td>
-									<td ng-bind="item.enddate | startDateFormat"></td>
-									<td ng-bind="item.epayment"></td>
-									<td ng-bind="item.rentnum"></td>
-									<td ng-bind="item.estatus || '待审核'"></td>
-									<td class="text-center">
-									<a ng-show="item.estatus!='审核不通过'" title="支付" ng-disabled="true"
-										ng-click="item.estatus?openPayModal():return"><i class="fa fa-money"></i>
-											支付</a>
-									<a ng-show="item.estatus =='审核不通过'" title="不可支付" ng-disabled="false" ><i class="fa fa-ban"></i>
-											审核不成功,不可支付</a>		
-											</td>
+										ng-bind="(gameList.pageNum-1)*gameList.pageSize+$index+1 || 0"></td>
+									<td ng-bind="item.gamename"></td>
+									<td ng-bind="item.gametype"></td>
+									<td ng-bind="item.gameplace"></td>
+									<td ng-bind="item.equip"></td>
+									<td ng-bind="item.gametime | startDateFormat"></td>
+									<td ng-bind="item.gamedec"></td>
+									<td class="text-center"><a title="修改"
+										ng-click="toEditPage(item.id)"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a title="删除" ng-click="deleteTips('one',item.id)"><i
+											class="fa fa-trash"></i></a></td>
 								</tr>
-								<tr ng-show="equipmentloanList.list.length==0">
+								<tr ng-show="gameList.list.length==0">
 									<td class="text-center" colspan="8">没有记录</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="pull-left">
-							共<span ng-bind="equipmentloanList.total"></span>条记录 共<span
-								ng-bind="equipmentloanList.pages"></span>页
+							共<span ng-bind="gameList.total"></span>条记录 共<span
+								ng-bind="gameList.pages"></span>页
 						</div>
 						<div class="text-right">
 							<button class="btn btn-white btn-sm"
-								ng-click="lastPage(equipmentloanList.pageNum-1)">上一页</button>
-							<input type="number" class="form-control page-cout"
+								ng-click="lastPage(gameList.pageNum-1)">上一页</button>
+							<input type="text" class="form-control page-cout"
 								ng-model="page.pageNum" ng-blur="toPage()"
 								ng-keyup="toPage($event)" />
 							<button class="btn btn-white btn-sm"
-								ng-click="nextPage(equipmentloanList.pageNum+1)">下一页</button>
+								ng-click="nextPage(gameList.pageNum+1)">下一页</button>
 						</div>
 					</div>
 				</div>
@@ -122,7 +122,7 @@
 								<strong>取消</strong>
 							</button>
 							<button class="btn btn-sm btn-primary" data-dismiss="modal"
-								ng-click="deleteEquipment()">
+								ng-click="deleteGame()">
 								<strong>确定</strong>
 							</button>
 						</div>

@@ -58,7 +58,7 @@ controllers.controller("equipmentloanList", ['$scope','$http','$state',function(
 	//器材查询
 	$scope.searchEquipmentloan = function(e) {
 		if(e && e.keyCode != 13) return;
-		sessionStorage.equipmentListPageNum = 1;
+		sessionStorage.equipmentloanListPageNum = 1;
 		$scope.page.fuzzy = true;
 		$scope.getEquipmentloanList();
 	}

@@ -10,11 +10,11 @@
 	<!--面包屑导航开始-->
 	<div class="row  border-bottom white-bg dashboard-header">
 		<div class="col-lg-10">
-			<h2>赛事管理</h2>
+			<h2>我的赛事</h2>
 			<ol class="breadcrumb">
 				<li><a href="#">主页</a></li>
-				<li><a>赛事管理</a></li>
-				<li class="active"><strong>修改赛事</strong></li>
+				<li><a>我的赛事</a></li>
+				<li class="active"><strong>预约赛事</strong></li>
 			</ol>
 		</div>
 		<div class="col-lg-2"></div>
@@ -27,7 +27,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>修改赛事</h5>
+						<h5>新增赛事</h5>
 					</div>
 					<div class="ibox-content">
 						<div class="input-group pull-left">
@@ -45,8 +45,9 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label">赛事名称</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control" name="gamename"
-									ng-class="{error:valid && gameForm.gamename.$invalid}" ng-model="game.gamename" required>
+									<input type="text" class="form-control" name="gameName"
+										ng-class="{error:valid && gameForm.gamename.$invalid}"
+										ng-model="game.gamename" required>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -54,7 +55,8 @@
 								<label class="col-sm-2 control-label">赛事类型</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="gametype"
-									ng-class="{error:valid && gameForm.gametype.$invalid}" ng-model="game.gametype" required>
+										ng-class="{error:valid && gameForm.gametype.$invalid}"
+										ng-model="game.gametype" required>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -62,7 +64,8 @@
 								<label class="col-sm-2 control-label" ng-model="game.gameplace">赛事位置</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="gameplace"
-									ng-class="{error:valid && gameForm.gameplace.$invalid}" ng-model="game.gameplace" required>
+										ng-class="{error:valid && gameForm.gameplace.$invalid}"
+										ng-model="game.gameplace" required>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -70,7 +73,8 @@
 								<label class="col-sm-2 control-label">赛事器材</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="equip"
-									ng-class="{error:valid && gameForm.equip.$invalid}" ng-model="game.equip" required>
+										ng-class="{error:valid && gameForm.equip.$invalid}"
+										ng-model="game.equip" required>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -78,7 +82,8 @@
 								<label class="col-sm-2 control-label">赛事时间</label>
 								<div class="col-sm-6">
 									<input type="date" class="form-control" name="gametime"
-									ng-class="{error:valid && gameForm.gametime.$invalid}" ng-model="game.gametime" required>
+										ng-class="{error:valid && gameForm.gametime.$invalid}"
+										ng-model="game.gametime" required>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -86,17 +91,10 @@
 								<label class="col-sm-2 control-label" ng-model="game.gamedec">赛事介绍</label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control" name="gamedec"
-									ng-class="{error:valid && gameForm.gamedec.$invalid}" ng-model="game.gamedec" required>
+										ng-class="{error:valid && gameForm.gamedec.$invalid}"
+										ng-model="game.gamedec" required>
 								</div>
 							</div>
-							<!-- <div class="hr-line-dashed"></div>
-							<div class="form-group">
-								<label class="col-sm-2 control-label" ng-model="game.status">赛事状态</label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" name="status"
-									ng-class="{error:valid && gameForm.status.$invalid}" ng-model="game.status" required>
-								</div>
-							</div> -->
 						</form>
 						<!-- 表单结束 -->
 					</div>
@@ -113,13 +111,12 @@
 				<div class="modal-body">
 					<div class="row">
 						<h3 class="m-t-none m-b">提示</h3>
-						<h4>确定放弃修改赛事吗？</h4>
+						<h4>确定放弃添加赛事吗？</h4>
 						<div class="pull-right">
 							<button class="btn btn-sm btn-default" data-dismiss="modal">
 								<strong>取消</strong>
 							</button>
-							<button class="btn btn-sm btn-primary"
-								ng-click="goBack()">
+							<button class="btn btn-sm btn-primary" ng-click="goBack()">
 								<strong>确定</strong>
 							</button>
 						</div>

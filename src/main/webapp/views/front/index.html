@@ -46,7 +46,7 @@
 					</li>
 					<!--个人信息结束-->
 					<li class=""><a><i
-							class="fa fa-delicious"></i> <span class="nav-label">用户操作</span><span
+							class="fa fa-user"></i> <span class="nav-label">用户操作</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li><a ui-sref="updatePwd">修改密码</a></li>
@@ -66,11 +66,11 @@
 							<li><a ui-sref="equipmentloanList">租借记录</a></li>
 						</ul></li>
 					<li class=""><a><i
-							class="fa fa-delicious"></i> <span class="nav-label">赛事预定</span><span
+							class="fa fa-table"></i> <span class="nav-label">赛事预定</span><span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a ui-sref="placeTypeList">赛事预定</a></li>
-							<li><a ui-sref="placeList">赛事公告</a></li>
+							<li><a ui-sref="gameList">赛事预定</a></li>
+							<li><a ui-sref="postList">赛事公告</a></li>
 						</ul></li>
 				</ul>
 
@@ -165,6 +165,8 @@
 		charset="utf-8"></script>
 		<script src="../../js/models/EquipmentloanVo.js" type="text/javascript"
 		charset="utf-8"></script>
+	<script src="../../js/models/GameVo.js" type="text/javascript"
+		charset="utf-8"></script>
 
 	<!--contorllers-->
 	<script src="../../js/controller/front/index.js" type="text/javascript"
@@ -184,6 +186,13 @@
 	<script src="../../js/controller/front/equipmentloan/equipmentloanList.js"
 		type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/controller/front/user/updatePwd.js"
+		type="text/javascript" charset="utf-8"></script>
+	<!-- game -->
+	<script src="../../js/controller/front/game/gameList.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/front/game/addGame.js"
+		type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/controller/front/game/editGame.js"
 		type="text/javascript" charset="utf-8"></script>
 		
 	<!-- services -->

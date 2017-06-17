@@ -39,10 +39,10 @@
 						<div class="input-group col-lg-4 pull-right">
 							<input type="text" class="form-control input-sm" name="search"
 								placeholder="输入器材名称查找" ng-model="page.keyWords"
-								ng-keyup="searchEquipment($event)">
+								ng-keyup="searchEquipmentloan($event)">
 							<div class="input-group-btn">
 								<button class="btn btn-sm btn-primary" data-toggle="modal"
-									ng-click="searchEquipment()">查询</button>
+									ng-click="searchEquipmentloan()">查询</button>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -74,7 +74,7 @@
 									<td ng-bind="item.enddate | startDateFormat"></td>
 									<td ng-bind="item.epayment"></td>
 									<td ng-bind="item.rentnum"></td>
-									<td ng-bind="item.estatus"></td>
+									<td ng-bind="item.estatus || '待审核'"></td>
 									<td class="text-center"><a title="审核"
 										ng-click="openCheckModal(item)"><i class="fa fa-gavel"></i>
 											审核</a></td>

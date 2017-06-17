@@ -36,10 +36,10 @@
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					equipmentName like '%' #{keyWords} '%'
+					eName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					equipmentName = #{keyWords}
+					eName = #{keyWords}
 				</if>
 			</if>
 		</where>
@@ -60,10 +60,10 @@
 		<where>
 			<if test="keyWords != null and keyWords != ''">
 				<if test="fuzzy == true">
-					equipment.equipmentName like '%' #{keyWords} '%'
+					equipmentloan.eName like '%' #{keyWords} '%'
 				</if>
 				<if test="fuzzy == false">
-					equipment.equipmentName = #{keyWords}
+					equipmentloan.eName = #{keyWords}
 				</if>
 			</if>
 		</where>

@@ -140,7 +140,7 @@ controllers.controller("leasePlace", ['$scope','$rootScope','$http','$state','$s
 		$scope.placeLeaseRecord.placeId = $scope.place.id;
 		$scope.placeLeaseRecord.startTime = $scope.startTime.startTime;
 		$scope.placeLeaseRecord.endTime = $scope.endTime.endTime;
-		$scope.placeLeaseRecord.userId = $rootScope.sysUser.id;
+		$scope.placeLeaseRecord.userId = sessionStorage.getItem("userId");
 		$scope.placeLeaseRecord.cost = $scope.place.cost;
 		var placeStatusList = [];
 		for(var i=0;i<($scope.endTime.course-$scope.startTime.course+1);i++) {
