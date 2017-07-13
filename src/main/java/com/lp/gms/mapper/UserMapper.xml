@@ -67,7 +67,7 @@
         status,
       </if>
       <if test="role != null">
-        role,
+        role_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
